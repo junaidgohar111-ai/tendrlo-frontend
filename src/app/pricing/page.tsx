@@ -41,7 +41,7 @@ export default function PricingPage() {
             <div className="mt-3"><span className="font-display text-4xl font-semibold">$0</span><span className="text-slate-500 text-sm"> / month</span></div>
             <ul className="mt-7 space-y-3">
               {free.map(f=><li key={f} className="flex items-start gap-2 text-sm"><span className="text-emerald-600 mt-0.5">✓</span>{f}</li>)}
-              <li className="flex items-start gap-2 text-sm text-slate-300"><span>✗</span>Cannot submit bids</li>
+              <li className="flex items-start gap-2 text-sm text-slate-300"><span>✗</span>Bidding is FREE during launch period!</li>
             </ul>
             <div className="mt-7 rounded-card border border-blueprint-100 py-2.5 text-center text-sm font-medium text-slate-400">Your current plan</div>
           </div>
