@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
@@ -17,7 +17,7 @@ export default function AdminCategories() {
 
   useEffect(() => { load(); }, []);
 
-  async function add(e) {
+  async function add(e: any) {
     e.preventDefault();
     setErr(""); setMsg("");
     try {
@@ -28,7 +28,7 @@ export default function AdminCategories() {
     } catch (e) { setErr(e.message || "Failed"); }
   }
 
-  async function save(id) {
+  async function save(id: any) {
     try {
       await api("/admin/categories/" + id, { method: "PATCH", body: JSON.stringify({ name: editName }) });
       setEditId(null);
@@ -37,7 +37,7 @@ export default function AdminCategories() {
     } catch (e) { setErr(e.message || "Failed"); }
   }
 
-  async function del(id, name) {
+  async function del(id: any, name: any) {
     if (!confirm("Delete " + name + "?")) return;
     try {
       await api("/admin/categories/" + id, { method: "DELETE" });
