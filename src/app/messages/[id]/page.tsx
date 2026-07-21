@@ -37,7 +37,7 @@ export default function ConversationPage() {
     }
   }
 
-  async function send(e) {
+  async function send(e?: any) {
     if (e) e.preventDefault();
     if (!text.trim() || sending) return;
     const body = text.trim();
