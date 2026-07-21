@@ -6,7 +6,7 @@ import { api } from '@/lib/api';
 
 export default function ConversationPage() {
   const { id } = useParams();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<any[]>([]);
   const [conv, setConv] = useState(null);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
