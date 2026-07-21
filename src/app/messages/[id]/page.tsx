@@ -1,4 +1,4 @@
-﻿'use client'; // v2
+﻿'use client';
 import { useEffect, useState, useRef, FormEvent } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
