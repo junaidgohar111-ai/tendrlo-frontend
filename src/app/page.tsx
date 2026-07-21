@@ -32,9 +32,9 @@ export default function Home() {
       </header>
 
       <section className="bp-grid border-b border-blueprint-100">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16">
           <div className="max-w-3xl">
-            <img src="https://tendrlo.s3.ap-southeast-1.amazonaws.com/Blue+Modern+Playful+Typographic+Patisserie+Logo+.png" alt="Tendrlo" className="h-16 w-auto mb-4"/>
+            <img src="https://tendrlo.s3.ap-southeast-1.amazonaws.com/Blue+Modern+Playful+Typographic+Patisserie+Logo+.png" alt="Tendrlo" className="h-12 w-auto mb-2"/>
             <span className="inline-block rounded-full border border-blueprint-100 bg-blueprint-50 px-3 py-1 text-xs font-mono uppercase tracking-wider text-blueprint-600">B2B Tendering Marketplace</span>
             <h1 className="mt-5 font-display text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
               Post the scope.<br/>Let contractors bid for it.
