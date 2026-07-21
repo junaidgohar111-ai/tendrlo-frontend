@@ -70,7 +70,7 @@ export default function ConversationPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-slate-50">
+    <main className="h-screen flex flex-col bg-slate-50">
       <header className="border-b border-blueprint-100 bg-white shrink-0">
         <div className="px-4 py-3 flex items-center gap-3">
           <button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
@@ -153,3 +153,4 @@ export default function ConversationPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
             </svg>
           </button>
+
