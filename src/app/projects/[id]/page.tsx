@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -51,7 +51,7 @@ export default function ProjectDetailPage() {
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="font-display text-2xl sm:text-3xl font-semibold">{project.title}</h1>
-            <p className="text-sm text-slate-500 mt-1 font-mono">{project.location_city} · {project.status} · {project.bid_count} bids</p>
+            <p className="text-sm text-slate-500 mt-1 font-mono">{project.location_city} Â· {project.status} Â· {project.bid_count} bids</p>
           </div>
           <span className={`rounded-full px-3 py-1 text-xs font-mono uppercase ${project.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>{project.status}</span>
         </div>
@@ -59,7 +59,7 @@ export default function ProjectDetailPage() {
           <div className="md:col-span-2">
             <p className="text-sm leading-relaxed text-ink/80 whitespace-pre-line">{project.description}</p>
             <dl className="mt-6 grid grid-cols-3 gap-4 font-mono text-sm">
-              <div><dt className="text-xs text-slate-500 uppercase">Budget</dt><dd className="mt-1">{project.budget_min||'—'}–{project.budget_max||'—'} {project.currency}</dd></div>
+              <div><dt className="text-xs text-slate-500 uppercase">Budget</dt><dd className="mt-1">{project.budget_min||'â€”'}â€“{project.budget_max||'â€”'} {project.currency}</dd></div>
               <div><dt className="text-xs text-slate-500 uppercase">Deadline</dt><dd className="mt-1">{project.deadline?new Date(project.deadline).toLocaleDateString():'Open'}</dd></div>
               <div><dt className="text-xs text-slate-500 uppercase">Posted</dt><dd className="mt-1">{new Date(project.created_at).toLocaleDateString()}</dd></div>
             </dl>
@@ -75,6 +75,43 @@ export default function ProjectDetailPage() {
                     </a>
                   ))}
                 </div>
+              </div>
+            )}
+                        {currentUser?.role === 'company' && project.status === 'open' && (
+              <div className="rounded-card border border-blueprint-100 bg-white p-6 mb-6">
+                <h3 className="font-display font-semibold mb-4">Submit your bid</h3>
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const amount = (form.elements.namedItem('amount') as HTMLInputElement).value;
+                  const proposal = (form.elements.namedItem('proposal') as HTMLTextAreaElement).value;
+                  const days = (form.elements.namedItem('days') as HTMLInputElement).value;
+                  try {
+                    await api('/bids', { method:'POST', body:JSON.stringify({ projectId:id, amount:Number(amount), proposalText:proposal, estimatedDays:days?Number(days):undefined }) });
+                    alert('Bid submitted successfully!');
+                    const d = await api('/bids/project/' + id);
+                    setBids(d.bids);
+                    form.reset();
+                  } catch(err) {
+                    alert(err instanceof Error ? err.message : 'Failed to submit bid.');
+                  }
+                }} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium">Bid amount (SAR)</label>
+                      <input name="amount" type="number" required min="1" className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Estimated days</label>
+                      <input name="days" type="number" min="1" className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Proposal</label>
+                    <textarea name="proposal" required rows={4} placeholder="Describe your approach and experience..." className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                  </div>
+                  <button type="submit" className="w-full rounded-card bg-blueprint-500 py-3 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors">Submit bid</button>
+                </form>
               </div>
             )}
             <h2 className="font-display text-xl font-semibold mt-10 mb-5">Bids ({bids.length})</h2>
@@ -115,7 +152,7 @@ export default function ProjectDetailPage() {
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between"><dt className="text-slate-500">Status</dt><dd className="font-mono capitalize">{project.status}</dd></div>
                 <div className="flex justify-between"><dt className="text-slate-500">Bids</dt><dd className="font-mono">{project.bid_count}</dd></div>
-                <div className="flex justify-between"><dt className="text-slate-500">Category</dt><dd className="font-mono">{project.category_name||'—'}</dd></div>
+                <div className="flex justify-between"><dt className="text-slate-500">Category</dt><dd className="font-mono">{project.category_name||'â€”'}</dd></div>
                 <div className="flex justify-between"><dt className="text-slate-500">Visibility</dt><dd className="font-mono capitalize">{project.visibility}</dd></div>
               </dl>
               {project.visibility === 'invite_only' && currentUser?.role === 'customer' && (
@@ -150,3 +187,4 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
