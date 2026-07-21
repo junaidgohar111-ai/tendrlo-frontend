@@ -22,7 +22,7 @@ export default function PricingPage() {
           <h2 className="font-display text-2xl font-semibold">Free for Everyone</h2>
           <p className="mt-2 text-slate-500"> All features are completely free.</p>
           <div className="mt-4 font-display text-5xl font-semibold text-blueprint-500">$0</div>
-          <p className="text-slate-500 text-sm mt-1">during launch period</p>
+          <p className="text-slate-500 text-sm mt-1">FREE</p>
           <ul className="mt-8 space-y-3 text-left max-w-xs mx-auto">
             {['Post unlimited projects','Submit unlimited bids','Company profile page','Browse all projects','Direct messaging','File uploads'].map(f => (
               <li key={f} className="flex items-center gap-2 text-sm">
