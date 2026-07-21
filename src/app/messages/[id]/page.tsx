@@ -56,14 +56,14 @@ export default function ConversationPage() {
     <main className="h-screen flex flex-col bg-slate-50">
       <header className="border-b border-blueprint-100 bg-white shrink-0">
         <div className="px-4 py-3 flex items-center gap-3">
-          <Link href="/messages" className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">
+          <button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
             <svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
-          </Link>
+          </button>
+          <Link href="/" className="font-display text-base font-semibold shrink-0">tendrlo<span className="text-blueprint-500">.</span></Link>
           <div className="flex-1">
             <p className="font-semibold text-sm">Conversation</p>
             {conv&&<Link href={`/projects/${conv.project_id}`} className="text-xs text-blueprint-600 hover:underline">View project</Link>}
           </div>
-          <Link href="/" className="font-display text-base font-semibold shrink-0">tendrlo<span className="text-blueprint-500">.</span></Link></div>
         </div>
       </header>
       <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -78,7 +78,6 @@ export default function ConversationPage() {
                   {!isMe&&<p className="text-xs text-slate-400 mb-1 ml-1">{m.sender_name}</p>}
                   <div className={`rounded-2xl px-3.5 py-2.5 text-sm ${isMe?'bg-blueprint-500 text-white rounded-tr-sm':'bg-white border border-blueprint-100 text-ink rounded-tl-sm'}`}>
                     {m.body&&<p className="leading-relaxed break-words">{m.body}</p>}
-                    {m.file_url&&<a href={m.file_url} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-1.5 mt-1 text-xs underline ${isMe?'text-white/80':'text-blueprint-600'}`}>Download file</a>}
                   </div>
                   <div className={`flex items-center gap-1 mt-0.5 ${isMe?'justify-end':'justify-start'}`}>
                     <span className="text-xs text-slate-400 font-mono">{fTime(m.created_at)}</span>
