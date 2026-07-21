@@ -56,7 +56,7 @@ export default function ConversationPage() {
     }
   }
 
-  function fTime(d) {
+  function fTime(d: string) {
     return new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
