@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { @apply bg-white text-ink font-body antialiased; }
+
+.bp-grid {
+  background-image: linear-gradient(rgba(20,86,232,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20,86,232,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.glass {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.crosshair { position: relative; }
+.crosshair::before, .crosshair::after {
+  content: ''; position: absolute; background: #1456E8; opacity: 0.4;
+}
+.crosshair::before { top:10px; left:10px; width:8px; height:1px; }
+.crosshair::after  { top:10px; left:10px; width:1px; height:8px; }
+
+::selection { background: rgba(20,86,232,0.15); }

@@ -1,0 +1,131 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { api } from '@/lib/api';
+
+export default function ProjectDetailPage() {
+  const { id } = useParams<{id:string}>();
+  const router = useRouter();
+  const [project, setProject] = useState<any>(null);
+  const [bids, setBids] = useState<any[]>([]);
+  const [attachments, setAttachments] = useState<any[]>([]);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [error, setError] = useState('');
+  const [messaging, setMessaging] = useState<string|null>(null);
+
+  useEffect(() => {
+    api('/auth/me').then(d=>setCurrentUser(d.user)).catch(()=>{});
+    api(`/projects/${id}`).then(d=>{setProject(d.project);setAttachments(d.attachments||[]);}).catch(e=>setError(e.message));
+    api(`/bids/project/${id}`).then(d=>setBids(d.bids)).catch(()=>{});
+  }, [id]);
+
+  async function acceptBid(bidId: string) {
+    try { await api(`/bids/${bidId}/accept`,{method:'POST'}); const d=await api(`/bids/project/${id}`); setBids(d.bids); }
+    catch(e){ setError(e instanceof Error?e.message:'Failed'); }
+  }
+
+  async function startChat(companyId: string) {
+    setMessaging(companyId);
+    try {
+      const d = await api('/messages/conversations',{method:'POST',body:JSON.stringify({projectId:id,companyId})});
+      router.push(`/messages/${d.conversation.id}`);
+    } catch(e){ setError(e instanceof Error?e.message:'Failed'); setMessaging(null); }
+  }
+
+  if (!project && error) return <main className="min-h-screen flex items-center justify-center"><p className="text-slate-500">{error}</p></main>;
+  if (!project) return <main className="min-h-screen flex items-center justify-center"><p className="text-slate-500">Loading...</p></main>;
+
+  return (
+    <main className="min-h-screen bg-white">
+      <header className="border-b border-blueprint-100">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link>
+          <div className="flex gap-4">
+            <Link href="/messages" className="text-sm text-slate-500 hover:text-ink">Messages</Link>
+            <Link href="/projects" className="text-sm text-slate-500 hover:text-ink">Browse</Link>
+          </div>
+        </div>
+      </header>
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h1 className="font-display text-2xl sm:text-3xl font-semibold">{project.title}</h1>
+            <p className="text-sm text-slate-500 mt-1 font-mono">{project.location_city} · {project.status} · {project.bid_count} bids</p>
+          </div>
+          <span className={`rounded-full px-3 py-1 text-xs font-mono uppercase ${project.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>{project.status}</span>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8 mt-6">
+          <div className="md:col-span-2">
+            <p className="text-sm leading-relaxed text-ink/80 whitespace-pre-line">{project.description}</p>
+            <dl className="mt-6 grid grid-cols-3 gap-4 font-mono text-sm">
+              <div><dt className="text-xs text-slate-500 uppercase">Budget</dt><dd className="mt-1">{project.budget_min||'—'}–{project.budget_max||'—'} {project.currency}</dd></div>
+              <div><dt className="text-xs text-slate-500 uppercase">Deadline</dt><dd className="mt-1">{project.deadline?new Date(project.deadline).toLocaleDateString():'Open'}</dd></div>
+              <div><dt className="text-xs text-slate-500 uppercase">Posted</dt><dd className="mt-1">{new Date(project.created_at).toLocaleDateString()}</dd></div>
+            </dl>
+            {attachments.length>0&&(
+              <div className="mt-8">
+                <h2 className="font-display text-lg font-semibold mb-3">Attachments</h2>
+                <div className="space-y-2">
+                  {attachments.map((a:any)=>(
+                    <a key={a.id} href={a.file_url} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-3 rounded-card border border-blueprint-100 px-4 py-3 hover:border-blueprint-500 transition-colors">
+                      <span className="text-sm text-blueprint-600 hover:underline">{a.file_name}</span>
+                      <span className="text-xs text-slate-400 font-mono ml-auto">{a.file_type}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+            <h2 className="font-display text-xl font-semibold mt-10 mb-5">Bids ({bids.length})</h2>
+            {error&&<p className="text-sm text-red-600 mb-3">{error}</p>}
+            {bids.length===0?<p className="text-sm text-slate-500">No bids yet.</p>:(
+              <div className="grid sm:grid-cols-2 gap-4">
+                {bids.map((b:any)=>(
+                  <div key={b.id} className="crosshair rounded-card border border-blueprint-100 bg-white p-5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="font-display font-semibold text-sm">{b.company_name}</span>
+                        {b.is_verified&&<span className="rounded-full bg-blueprint-50 px-2 py-0.5 text-xs font-mono text-blueprint-600">Verified</span>}
+                      </div>
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-mono text-slate-500">{b.status}</span>
+                    </div>
+                    <p className="mt-3 font-mono text-2xl font-semibold text-blueprint-600">{Number(b.amount).toLocaleString()} {b.currency}</p>
+                    {b.estimated_days&&<p className="text-xs text-slate-500 font-mono mt-1">{b.estimated_days} days est.</p>}
+                    <p className="mt-3 text-sm text-ink/80 line-clamp-3">{b.proposal_text}</p>
+                    <div className="mt-4 flex gap-2">
+                      {b.status==='submitted'&&currentUser?.role==='customer'&&(
+                        <button onClick={()=>acceptBid(b.id)} className="flex-1 rounded-card bg-blueprint-500 py-2 text-sm font-medium text-white hover:bg-blueprint-600">Accept bid</button>
+                      )}
+                      {currentUser?.role==='customer'&&(
+                        <button onClick={()=>startChat(b.company_id)} disabled={messaging===b.company_id}
+                          className="flex-1 rounded-card border border-blueprint-100 py-2 text-sm font-medium text-blueprint-600 hover:border-blueprint-500 disabled:opacity-60">
+                          {messaging===b.company_id?'Opening...':'Message'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="space-y-4">
+            <div className="rounded-card border border-blueprint-100 p-5">
+              <h3 className="font-display font-semibold text-sm mb-3">Project details</h3>
+              <dl className="space-y-2 text-sm">
+                <div className="flex justify-between"><dt className="text-slate-500">Status</dt><dd className="font-mono capitalize">{project.status}</dd></div>
+                <div className="flex justify-between"><dt className="text-slate-500">Bids</dt><dd className="font-mono">{project.bid_count}</dd></div>
+                <div className="flex justify-between"><dt className="text-slate-500">Category</dt><dd className="font-mono">{project.category_name||'—'}</dd></div>
+                <div className="flex justify-between"><dt className="text-slate-500">Visibility</dt><dd className="font-mono capitalize">{project.visibility}</dd></div>
+              </dl>
+            </div>
+            <Link href="/projects/new" className="block rounded-card bg-ink text-white p-5 text-center hover:bg-ink/90 transition-colors">
+              <p className="font-semibold text-sm">Post a similar project</p>
+              <p className="text-xs text-white/60 mt-1">Free, unlimited</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
