@@ -15,12 +15,12 @@ export default function PricingPage() {
       </header>
       <section className="mx-auto max-w-3xl px-4 sm:px-6 py-16 text-center">
         <h1 className="font-display text-3xl sm:text-4xl font-semibold">Simple, transparent pricing</h1>
-        <p className="mt-3 text-slate-500 max-w-lg mx-auto">We are in launch mode — everything is free for now!</p>
+        <p className="mt-3 text-slate-500 max-w-lg mx-auto"> Free for now!</p>
       </section>
       <section className="mx-auto max-w-2xl px-4 sm:px-6 pb-16">
         <div className="rounded-card border-2 border-blueprint-500 bg-white p-8 text-center">
           <h2 className="font-display text-2xl font-semibold">Free for Everyone</h2>
-          <p className="mt-2 text-slate-500">During our launch period, all features are completely free.</p>
+          <p className="mt-2 text-slate-500"> All features are completely free.</p>
           <div className="mt-4 font-display text-5xl font-semibold text-blueprint-500">$0</div>
           <p className="text-slate-500 text-sm mt-1">during launch period</p>
           <ul className="mt-8 space-y-3 text-left max-w-xs mx-auto">
