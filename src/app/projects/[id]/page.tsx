@@ -118,6 +118,27 @@ export default function ProjectDetailPage() {
                 <div className="flex justify-between"><dt className="text-slate-500">Category</dt><dd className="font-mono">{project.category_name||'—'}</dd></div>
                 <div className="flex justify-between"><dt className="text-slate-500">Visibility</dt><dd className="font-mono capitalize">{project.visibility}</dd></div>
               </dl>
+              {project.visibility === 'invite_only' && currentUser?.role === 'customer' && (
+                <div className="mt-4">
+                  <button
+                    onClick={async () => {
+                      try {
+                        const d = await api(`/projects/${project.id}/invite`, { method: 'POST' });
+                        await navigator.clipboard.writeText(d.inviteUrl);
+                        alert('Invite link copied to clipboard!\n\n' + d.inviteUrl);
+                      } catch (e) {
+                        alert('Failed to generate invite link.');
+                      }
+                    }}
+                    className="w-full rounded-card border border-blueprint-500 text-blueprint-600 py-2 text-sm font-medium hover:bg-blueprint-50 transition-colors"
+                  >
+                    Copy invite link
+                  </button>
+                  <p className="text-xs text-slate-400 mt-1 text-center">Share this link with contractors you want to invite</p>
+                </div>
+              )}
+              <dl className="space-y-2 text-sm hidden">
+              </dl>
             </div>
             <Link href="/projects/new" className="block rounded-card bg-ink text-white p-5 text-center hover:bg-ink/90 transition-colors">
               <p className="font-semibold text-sm">Post a similar project</p>
