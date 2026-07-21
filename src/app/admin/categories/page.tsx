@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
 export default function AdminCategories() {
-  const [cats, setCats] = useState([]);
+  const [cats, setCats] = useState<any[]>([]);
   const [newName, setNewName] = useState("");
   const [editId, setEditId] = useState(null);
   const [editName, setEditName] = useState("");
