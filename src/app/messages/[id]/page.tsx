@@ -1,4 +1,4 @@
-'use client';
+﻿'use client'; // v2
 import { useEffect, useState, useRef, FormEvent } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -116,7 +116,7 @@ export default function ConversationPage() {
                   </div>
                   <div className={`flex items-center gap-1 mt-0.5 ${isMe ? 'justify-end' : 'justify-start'}`}>
                     <span className="text-xs text-slate-400 font-mono">{fTime(m.created_at)}</span>
-                    {isMe && <span className={`text-xs ${m.is_read ? 'text-blueprint-500' : 'text-slate-400'}`}>{m.is_read ? '✓✓' : '✓'}</span>}
+                    {isMe && <span className={`text-xs ${m.is_read ? 'text-blueprint-500' : 'text-slate-400'}`}>{m.is_read ? 'âœ“âœ“' : 'âœ“'}</span>}
                   </div>
                 </div>
               </div>
