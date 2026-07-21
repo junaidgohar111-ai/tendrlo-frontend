@@ -63,7 +63,7 @@ export default function ConversationPage() {
 
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-white">
+      <main className="h-screen flex items-center justify-center bg-white">
         <p className="text-slate-500 text-sm">Loading...</p>
       </div>
     );
