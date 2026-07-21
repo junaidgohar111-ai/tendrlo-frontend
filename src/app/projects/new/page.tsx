@@ -90,7 +90,7 @@ export default function NewProjectPage() {
         <div className="mt-7 space-y-5 rounded-card border border-blueprint-100 bg-white p-6 sm:p-8">
           <div>
             <label className="text-sm font-medium">Project title <span className="text-red-500">*</span></label>
-            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. HVAC retrofit for office building" className={inp}/>
+            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. HVAC, Civil, MEP, Supply Chain" className={inp}/>
             {errors.title&&<p className="text-xs text-red-500 mt-1">{errors.title}</p>}
           </div>
           <div>
@@ -191,3 +191,4 @@ export default function NewProjectPage() {
     </main>
   );
 }
+
