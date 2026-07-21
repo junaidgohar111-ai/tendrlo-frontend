@@ -63,9 +63,7 @@ export default function ConversationPage() {
 
   if (loading) {
     return (
-      <main className="h-screen flex items-center justify-center bg-white">
-        <p className="text-slate-500 text-sm">Loading...</p>
-      </div>
+      <main className="h-screen flex items-center justify-center bg-white"><p className="text-slate-500 text-sm">Loading...</p></main>
     );
   }
 
@@ -153,4 +151,5 @@ export default function ConversationPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
             </svg>
           </button>
+
 
