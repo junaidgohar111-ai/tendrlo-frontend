@@ -28,7 +28,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bp-grid flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-sm rounded-card border border-blueprint-100 bg-white p-6 sm:p-8">
-        <Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link>
+        <div className="flex items-center gap-2"><button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"><svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg></button><Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link></div>
         <h1 className="font-display text-2xl font-semibold mt-5">Log in</h1>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
           <div>

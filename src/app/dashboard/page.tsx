@@ -22,7 +22,7 @@ export default function Dashboard() {
     <main className="min-h-screen bp-grid">
       <header className="border-b border-blueprint-100 bg-white/90 glass">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link>
+          <div className="flex items-center gap-2"><button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"><svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg></button><Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link></div>
           <div className="flex items-center gap-4">
             <Link href="/messages" className="text-sm text-slate-500 hover:text-ink">Messages</Link>
             <button onClick={logout} className="text-sm text-slate-500 hover:text-ink">Log out</button>

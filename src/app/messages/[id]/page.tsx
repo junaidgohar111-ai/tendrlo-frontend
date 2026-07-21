@@ -63,7 +63,7 @@ export default function ConversationPage() {
             <p className="font-semibold text-sm">Conversation</p>
             {conv&&<Link href={`/projects/${conv.project_id}`} className="text-xs text-blueprint-600 hover:underline">View project</Link>}
           </div>
-          <Link href="/" className="font-display text-base font-semibold shrink-0">tendrlo<span className="text-blueprint-500">.</span></Link>
+          <Link href="/" className="font-display text-base font-semibold shrink-0">tendrlo<span className="text-blueprint-500">.</span></Link></div>
         </div>
       </header>
       <div className="flex-1 overflow-y-auto px-4 py-4">
