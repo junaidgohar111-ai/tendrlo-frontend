@@ -25,7 +25,7 @@ export default function AdminCategories() {
       setNewName("");
       setMsg("Added successfully.");
       load();
-    } catch (e) { setErr(e.message || "Failed"); }
+    } catch (e: any) { setErr(e?.message || "Failed"); }
   }
 
   async function save(id: any) {
@@ -34,7 +34,7 @@ export default function AdminCategories() {
       setEditId(null);
       setMsg("Updated.");
       load();
-    } catch (e) { setErr(e.message || "Failed"); }
+    } catch (e: any) { setErr(e?.message || "Failed"); }
   }
 
   async function del(id: any, name: any) {
@@ -43,7 +43,7 @@ export default function AdminCategories() {
       await api("/admin/categories/" + id, { method: "DELETE" });
       setMsg("Deleted.");
       load();
-    } catch (e) { setErr(e.message || "Failed"); }
+    } catch (e: any) { setErr(e?.message || "Failed"); }
   }
 
   return (
