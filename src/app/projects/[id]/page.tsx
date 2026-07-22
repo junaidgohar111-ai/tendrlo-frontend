@@ -58,7 +58,7 @@ export default function ProjectDetailPage() {
         <div className="grid md:grid-cols-3 gap-8 mt-6">
           <div className="md:col-span-2">
             <p className="text-sm leading-relaxed text-ink/80 whitespace-pre-line">{project.description}</p>
-            <dl className="mt-6 grid grid-cols-3 gap-4 font-mono text-sm">
+            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-sm">
               <div><dt className="text-xs text-slate-500 uppercase">Budget</dt><dd className="mt-1">{project.budget_min||'â€”'}â€“{project.budget_max||'â€”'} {project.currency}</dd></div>
               <div><dt className="text-xs text-slate-500 uppercase">Deadline</dt><dd className="mt-1">{project.deadline?new Date(project.deadline).toLocaleDateString():'Open'}</dd></div>
               <div><dt className="text-xs text-slate-500 uppercase">Posted</dt><dd className="mt-1">{new Date(project.created_at).toLocaleDateString()}</dd></div>
