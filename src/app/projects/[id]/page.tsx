@@ -214,7 +214,7 @@ export default function ProjectDetailPage() {
                           Accept bid
                         </button>
                       )}
-                      {currentUser?.role === 'customer' && (
+                      {currentUser && currentUser.role === 'customer' && (
                         <button
                           onClick={() => startChat(b.company_id)}
                           disabled={messaging === b.company_id}
@@ -279,3 +279,4 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
