@@ -167,7 +167,7 @@ export default function NewProjectPage() {
               {links.map((l,i)=>(
                 <div key={i} className="flex gap-2 mb-2">
                   <input type="url" value={l} onChange={e=>{const u=[...links];u[i]=e.target.value;setLinks(u);}} placeholder="https://drive.google.com/..." className={`flex-1 ${inp}`}/>
-                  <button type="button" onClick={()=>setLinks(links.length>1?links.filter((_,j)=>j!==i):[''])} className="text-red-400 hover:text-red-600 px-2">âœ•</button>
+                  <button type="button" onClick={()=>setLinks(links.length>1?links.filter((_,j)=>j!==i):[''])} className="text-red-400 hover:text-red-600 px-2">x</button>
                 </div>
               ))}
               <button type="button" onClick={()=>setLinks([...links,''])} className="text-sm text-blueprint-600 font-medium hover:underline">+ Add another link</button>
@@ -191,4 +191,5 @@ export default function NewProjectPage() {
     </main>
   );
 }
+
 
