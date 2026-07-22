@@ -107,6 +107,36 @@ export default function Home() {
         </div>
       </section>
 
+{/* ===== STATS/IMAGES SECTION ===== */}
+<section className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80" alt="Construction" className="w-full h-full object-cover"/>
+      <div className="absolute inset-0 bg-black/30 flex items-end p-3">
+        <span className="text-white text-sm font-semibold">Construction</span>
+      </div>
+    </div>
+    <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
+      <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&q=80" alt="Engineering" className="w-full h-full object-cover"/>
+      <div className="absolute inset-0 bg-black/30 flex items-end p-3">
+        <span className="text-white text-sm font-semibold">Engineering</span>
+      </div>
+    </div>
+    <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
+      <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&q=80" alt="HVAC" className="w-full h-full object-cover"/>
+      <div className="absolute inset-0 bg-black/30 flex items-end p-3">
+        <span className="text-white text-sm font-semibold">HVAC</span>
+      </div>
+    </div>
+    <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Civil Works" className="w-full h-full object-cover"/>
+      <div className="absolute inset-0 bg-black/30 flex items-end p-3">
+        <span className="text-white text-sm font-semibold">Civil Works</span>
+      </div>
+    </div>
+  </div>
+</section>
+
       {/* ===== CATEGORIES ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">
         <h2 className="font-display text-xl font-semibold mb-4">Popular categories</h2>
