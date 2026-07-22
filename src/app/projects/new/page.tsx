@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, FormEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -90,7 +90,7 @@ export default function NewProjectPage() {
         <div className="mt-7 space-y-5 rounded-card border border-blueprint-100 bg-white p-6 sm:p-8">
           <div>
             <label className="text-sm font-medium">Project title <span className="text-red-500">*</span></label>
-            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. HVAC retrofit for office building" className={inp}/>
+            <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. HVAC, Civil, MEP, Supply Chain" className={inp}/>
             {errors.title&&<p className="text-xs text-red-500 mt-1">{errors.title}</p>}
           </div>
           <div>
@@ -134,10 +134,10 @@ export default function NewProjectPage() {
           </div>
           <div>
             <label className="text-sm font-medium">Attachments <span className="text-red-500">*</span></label>
-            <p className="text-xs text-slate-500 mt-0.5">PDF, DWG, Excel, images, videos — max {MAX_MB}MB each. Use link box for larger files.</p>
+            <p className="text-xs text-slate-500 mt-0.5">PDF, DWG, Excel, images, videos â€” max {MAX_MB}MB each. Use link box for larger files.</p>
             <div onClick={()=>fileRef.current?.click()} className="mt-2 border-2 border-dashed border-blueprint-100 rounded-card p-6 text-center cursor-pointer hover:border-blueprint-500 transition-colors">
               <p className="text-sm font-medium">Click to select files</p>
-              <p className="text-xs text-slate-500 mt-1">PDF · DWG · Excel · Images · Videos · Max {MAX_MB}MB</p>
+              <p className="text-xs text-slate-500 mt-1">PDF Â· DWG Â· Excel Â· Images Â· Videos Â· Max {MAX_MB}MB</p>
             </div>
             <input ref={fileRef} type="file" multiple accept=".pdf,.dwg,.xlsx,.xls,.jpg,.jpeg,.png,.webp,.mp4" onChange={handleFiles} className="hidden"/>
             {oversized.length>0&&(
@@ -167,7 +167,7 @@ export default function NewProjectPage() {
               {links.map((l,i)=>(
                 <div key={i} className="flex gap-2 mb-2">
                   <input type="url" value={l} onChange={e=>{const u=[...links];u[i]=e.target.value;setLinks(u);}} placeholder="https://drive.google.com/..." className={`flex-1 ${inp}`}/>
-                  <button type="button" onClick={()=>setLinks(links.length>1?links.filter((_,j)=>j!==i):[''])} className="text-red-400 hover:text-red-600 px-2">✕</button>
+                  <button type="button" onClick={()=>setLinks(links.length>1?links.filter((_,j)=>j!==i):[''])} className="text-red-400 hover:text-red-600 px-2">âœ•</button>
                 </div>
               ))}
               <button type="button" onClick={()=>setLinks([...links,''])} className="text-sm text-blueprint-600 font-medium hover:underline">+ Add another link</button>
@@ -191,3 +191,4 @@ export default function NewProjectPage() {
     </main>
   );
 }
+
