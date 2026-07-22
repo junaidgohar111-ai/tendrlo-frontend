@@ -85,11 +85,11 @@ export default function Home() {
               Post the scope.<br/>Let contractors bid for it.
             </h1>
             <p className="mt-4 text-base sm:text-lg text-slate-500 max-w-xl">
-              Construction, engineering, food, materials, and more â€” post unlimited projects free, compare quotations side by side, award with a verified contractor.
+              Construction, engineering, food, materials, and more - post unlimited projects free, compare quotations side by side, award with a verified contractor.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Link href="/signup?role=customer" className="rounded-card bg-blueprint-500 px-6 py-3.5 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors text-center">
-                Post a project â€” free
+                Post a project - free
               </Link>
               <Link href="/signup?role=company" className="rounded-card border border-blueprint-200 bg-white px-6 py-3.5 text-sm font-medium text-ink hover:border-blueprint-500 transition-colors text-center">
                 Register as a contractor
@@ -173,7 +173,7 @@ export default function Home() {
           <div>
             <h2 className="font-display text-xl sm:text-2xl font-semibold">Ready to grow your business?</h2>
             <p className="mt-2 text-white/60 text-sm max-w-md">
-              Join contractors and customers on Tendrlo. Post projects and receive bids â€” completely free.
+              Join contractors and customers on Tendrlo. Post projects and receive bids completely free.
             </p>
           </div>
           <Link href="/signup" className="shrink-0 rounded-card bg-white px-6 py-3 text-sm font-medium text-ink hover:bg-blue-50 transition-colors text-center">
@@ -185,7 +185,7 @@ export default function Home() {
       {/* ===== FOOTER ===== */}
       <footer className="border-t border-blueprint-100 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <span>© {new Date().getFullYear()} Tendrlo. All rights reserved.</span>
+          <span> © {new Date().getFullYear()} Tendrlo. All rights reserved.</span>
           <div className="flex gap-5">
             <Link href="/support" className="hover:text-ink">Support</Link>
             <Link href="/terms" className="hover:text-ink">Terms</Link>
