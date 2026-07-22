@@ -15,6 +15,7 @@ export default function NewProjectPage() {
   const [city, setCity] = useState('');
   const [budgetMin, setBudgetMin] = useState('');
   const [budgetMax, setBudgetMax] = useState('');
+  const [currency, setCurrency] = useState('SAR');
   const [deadline, setDeadline] = useState('');
   const [visibility, setVisibility] = useState<'public'|'invite_only'>('public');
   const [files, setFiles] = useState<File[]>([]);
@@ -54,7 +55,7 @@ export default function NewProjectPage() {
         body: JSON.stringify({
           title:title.trim(), description:description.trim(), locationCity:city.trim(),
           budgetMin:Number(budgetMin), budgetMax:budgetMax?Number(budgetMax):undefined,
-          deadline:deadline||undefined, status, visibility,
+          currency, deadline:deadline||undefined, status, visibility,
         }),
       });
       const validLinks = links.filter(l=>l.trim());
@@ -80,24 +81,34 @@ export default function NewProjectPage() {
     <main className="min-h-screen bp-grid pb-16">
       <header className="border-b border-blueprint-100 bg-white/90 glass">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2"><button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"><svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg></button><Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link></div>
+          <div className="flex items-center gap-2">
+            <button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
+              <svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link>
+          </div>
           <Link href="/dashboard" className="text-sm text-slate-500 hover:text-ink">Dashboard</Link>
         </div>
       </header>
+
       <section className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
         <h1 className="font-display text-2xl sm:text-3xl font-semibold">Post a project</h1>
         <p className="text-slate-500 mt-1 text-sm">Fields marked <span className="text-red-500">*</span> are required.</p>
+
         <div className="mt-7 space-y-5 rounded-card border border-blueprint-100 bg-white p-6 sm:p-8">
+
           <div>
             <label className="text-sm font-medium">Project title <span className="text-red-500">*</span></label>
             <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. HVAC, Civil, MEP, Supply Chain" className={inp}/>
             {errors.title&&<p className="text-xs text-red-500 mt-1">{errors.title}</p>}
           </div>
+
           <div>
             <label className="text-sm font-medium">Scope of work <span className="text-red-500">*</span></label>
             <textarea rows={6} value={description} onChange={e=>setDescription(e.target.value)} placeholder="Describe what needs to be done, materials, site access, and any constraints." className={inp}/>
             {errors.description&&<p className="text-xs text-red-500 mt-1">{errors.description}</p>}
           </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium">City <span className="text-red-500">*</span></label>
@@ -109,17 +120,30 @@ export default function NewProjectPage() {
               <input type="date" value={deadline} onChange={e=>setDeadline(e.target.value)} className={inp}/>
             </div>
           </div>
+
+          <div>
+            <label className="text-sm font-medium">Currency</label>
+            <select value={currency} onChange={e=>setCurrency(e.target.value)} className={inp}>
+              <option value="SAR">SAR - Saudi Riyal</option>
+              <option value="USD">USD - US Dollar</option>
+              <option value="AED">AED - UAE Dirham</option>
+              <option value="PKR">PKR - Pakistani Rupee</option>
+              <option value="INR">INR - Indian Rupee</option>
+            </select>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">Budget min (SAR) <span className="text-red-500">*</span></label>
+              <label className="text-sm font-medium">Budget min <span className="text-red-500">*</span></label>
               <input type="number" min="0" value={budgetMin} onChange={e=>setBudgetMin(e.target.value)} className={inp}/>
               {errors.budgetMin&&<p className="text-xs text-red-500 mt-1">{errors.budgetMin}</p>}
             </div>
             <div>
-              <label className="text-sm font-medium">Budget max (SAR)</label>
+              <label className="text-sm font-medium">Budget max</label>
               <input type="number" min="0" value={budgetMax} onChange={e=>setBudgetMax(e.target.value)} className={inp}/>
             </div>
           </div>
+
           <div>
             <label className="text-sm font-medium">Bid visibility <span className="text-red-500">*</span></label>
             <div className="mt-2 grid grid-cols-2 gap-3">
@@ -132,14 +156,16 @@ export default function NewProjectPage() {
               ))}
             </div>
           </div>
+
           <div>
             <label className="text-sm font-medium">Attachments <span className="text-red-500">*</span></label>
-            <p className="text-xs text-slate-500 mt-0.5">PDF, DWG, Excel, images, videos â€” max {MAX_MB}MB each. Use link box for larger files.</p>
+            <p className="text-xs text-slate-500 mt-0.5">PDF, DWG, Excel, images, videos - max {MAX_MB}MB each.</p>
             <div onClick={()=>fileRef.current?.click()} className="mt-2 border-2 border-dashed border-blueprint-100 rounded-card p-6 text-center cursor-pointer hover:border-blueprint-500 transition-colors">
               <p className="text-sm font-medium">Click to select files</p>
-              <p className="text-xs text-slate-500 mt-1">PDF Â· DWG Â· Excel Â· Images Â· Videos Â· Max {MAX_MB}MB</p>
+              <p className="text-xs text-slate-500 mt-1">PDF, DWG, Excel, Images, Videos - Max {MAX_MB}MB</p>
             </div>
             <input ref={fileRef} type="file" multiple accept=".pdf,.dwg,.xlsx,.xls,.jpg,.jpeg,.png,.webp,.mp4" onChange={handleFiles} className="hidden"/>
+
             {oversized.length>0&&(
               <div className="mt-3 rounded-card border border-red-200 bg-red-50 px-4 py-3">
                 <p className="text-sm font-medium text-red-600 mb-1">These files exceed {MAX_MB}MB:</p>
@@ -149,9 +175,10 @@ export default function NewProjectPage() {
                     <button onClick={()=>setOversized(oversized.filter((_,j)=>j!==i))} className="text-xs ml-3 underline">dismiss</button>
                   </div>
                 ))}
-                <p className="text-xs text-red-500 mt-2 font-medium">Use the link box below for these files instead.</p>
+                <p className="text-xs text-red-500 mt-2 font-medium">Use the link box below for these files.</p>
               </div>
             )}
+
             {files.length>0&&(
               <div className="mt-3 space-y-2">
                 {files.map((f,i)=>(
@@ -162,6 +189,7 @@ export default function NewProjectPage() {
                 ))}
               </div>
             )}
+
             <div className="mt-4">
               <p className="text-sm font-medium mb-2">File links (Google Drive, Dropbox, etc.)</p>
               {links.map((l,i)=>(
@@ -174,8 +202,10 @@ export default function NewProjectPage() {
             </div>
             {errors.attachments&&<p className="text-xs text-red-500 mt-2">{errors.attachments}</p>}
           </div>
+
           {uploadMsg&&<p className="text-sm text-blueprint-600 font-mono">{uploadMsg}</p>}
           {errors.submit&&<div className="rounded-card bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">{errors.submit}</div>}
+
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button type="button" disabled={loading} onClick={()=>submit('draft')}
               className="rounded-card border border-blueprint-200 px-5 py-2.5 text-sm font-medium hover:border-blueprint-500 disabled:opacity-60 transition-colors">
@@ -186,10 +216,9 @@ export default function NewProjectPage() {
               {loading?'Publishing...':'Publish for bidding'}
             </button>
           </div>
+
         </div>
       </section>
     </main>
   );
 }
-
-
