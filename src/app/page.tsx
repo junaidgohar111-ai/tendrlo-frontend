@@ -185,7 +185,7 @@ export default function Home() {
       {/* ===== FOOTER ===== */}
       <footer className="border-t border-blueprint-100 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <span>Â© {new Date().getFullYear()} Tendrlo. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Tendrlo. All rights reserved.</span>
           <div className="flex gap-5">
             <Link href="/support" className="hover:text-ink">Support</Link>
             <Link href="/terms" className="hover:text-ink">Terms</Link>
@@ -197,3 +197,4 @@ export default function Home() {
     </main>
   );
 }
+
