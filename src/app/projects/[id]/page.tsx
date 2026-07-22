@@ -33,41 +33,86 @@ export default function ProjectDetailPage() {
     } catch(e){ setError(e instanceof Error?e.message:'Failed'); setMessaging(null); }
   }
 
-  if (!project && error) return <main className="min-h-screen flex items-center justify-center"><p className="text-slate-500">{error}</p></main>;
-  if (!project) return <main className="min-h-screen flex items-center justify-center"><p className="text-slate-500">Loading...</p></main>;
+  function formatBudget() {
+    if (!project) return '';
+    const min = project.budget_min ? Number(project.budget_min).toLocaleString() : null;
+    const max = project.budget_max ? Number(project.budget_max).toLocaleString() : null;
+    if (min && max) return min + ' - ' + max + ' ' + project.currency;
+    if (min) return min + ' ' + project.currency;
+    if (max) return max + ' ' + project.currency;
+    return 'Budget not disclosed';
+  }
+
+  if (!project && error) return (
+    <main className="min-h-screen flex items-center justify-center">
+      <p className="text-slate-500">{error}</p>
+    </main>
+  );
+
+  if (!project) return (
+    <main className="min-h-screen flex items-center justify-center">
+      <p className="text-slate-500">Loading...</p>
+    </main>
+  );
 
   return (
     <main className="min-h-screen bg-white">
       <header className="border-b border-blueprint-100">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2"><button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"><svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg></button><Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link></div>
+          <div className="flex items-center gap-2">
+            <button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
+              <svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <Link href="/" className="font-display text-xl font-semibold">
+              tendrlo<span className="text-blueprint-500">.</span>
+            </Link>
+          </div>
           <div className="flex gap-4">
             <Link href="/messages" className="text-sm text-slate-500 hover:text-ink">Messages</Link>
             <Link href="/projects" className="text-sm text-slate-500 hover:text-ink">Browse</Link>
           </div>
         </div>
       </header>
+
       <section className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="font-display text-2xl sm:text-3xl font-semibold">{project.title}</h1>
-            <p className="text-sm text-slate-500 mt-1 font-mono">{project.location_city} · {project.status} · {project.bid_count} bids</p>
+            <p className="text-sm text-slate-500 mt-1 font-mono">
+              {project.location_city} · {project.status} · {project.bid_count} bids
+            </p>
           </div>
-          <span className={`rounded-full px-3 py-1 text-xs font-mono uppercase ${project.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>{project.status}</span>
+          <span className={`rounded-full px-3 py-1 text-xs font-mono uppercase ${project.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>
+            {project.status}
+          </span>
         </div>
+
         <div className="grid md:grid-cols-3 gap-8 mt-6">
           <div className="md:col-span-2">
             <p className="text-sm leading-relaxed text-ink/80 whitespace-pre-line">{project.description}</p>
+
             <dl className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-sm">
-              <div><dt className="text-xs text-slate-500 uppercase">Budget</dt><dd className="mt-1">{project.budget_min||'â€”'}â€“{project.budget_max||'â€”'} {project.currency}</dd></div>
-              <div><dt className="text-xs text-slate-500 uppercase">Deadline</dt><dd className="mt-1">{project.deadline?new Date(project.deadline).toLocaleDateString():'Open'}</dd></div>
-              <div><dt className="text-xs text-slate-500 uppercase">Posted</dt><dd className="mt-1">{new Date(project.created_at).toLocaleDateString()}</dd></div>
+              <div>
+                <dt className="text-xs text-slate-500 uppercase">Budget</dt>
+                <dd className="mt-1">{formatBudget()}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500 uppercase">Deadline</dt>
+                <dd className="mt-1">{project.deadline ? new Date(project.deadline).toLocaleDateString() : 'Open'}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500 uppercase">Posted</dt>
+                <dd className="mt-1">{new Date(project.created_at).toLocaleDateString()}</dd>
+              </div>
             </dl>
-            {attachments.length>0&&(
+
+            {attachments.length > 0 && (
               <div className="mt-8">
                 <h2 className="font-display text-lg font-semibold mb-3">Attachments</h2>
                 <div className="space-y-2">
-                  {attachments.map((a:any)=>(
+                  {attachments.map((a:any) => (
                     <a key={a.id} href={a.file_url} target="_blank" rel="noopener noreferrer"
                       className="flex items-center gap-3 rounded-card border border-blueprint-100 px-4 py-3 hover:border-blueprint-500 transition-colors">
                       <span className="text-sm text-blueprint-600 hover:underline">{a.file_name}</span>
@@ -77,8 +122,9 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
             )}
-                        {currentUser?.role === 'company' && project.status === 'open' && (
-              <div className="rounded-card border border-blueprint-100 bg-white p-6 mb-6">
+
+            {currentUser?.role === 'company' && project.status === 'open' && (
+              <div className="rounded-card border border-blueprint-100 bg-white p-6 mt-8">
                 <h3 className="font-display font-semibold mb-4">Submit your bid</h3>
                 <form onSubmit={async (e) => {
                   e.preventDefault();
@@ -89,7 +135,7 @@ export default function ProjectDetailPage() {
                   try {
                     await api('/bids', { method:'POST', body:JSON.stringify({ projectId:id, amount:Number(amount), proposalText:proposal, estimatedDays:days?Number(days):undefined }) });
                     alert('Bid submitted successfully!');
-                    const d = await api('/bids/project/' + id);
+                    const d = await api(`/bids/project/${id}`);
                     setBids(d.bids);
                     form.reset();
                   } catch(err) {
@@ -98,46 +144,65 @@ export default function ProjectDetailPage() {
                 }} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium">Bid amount (SAR)</label>
-                      <input name="amount" type="number" required min="1" className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                      <label className="text-sm font-medium">Bid amount ({project.currency})</label>
+                      <input name="amount" type="number" required min="1"
+                        className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                     </div>
                     <div>
                       <label className="text-sm font-medium">Estimated days</label>
-                      <input name="days" type="number" min="1" className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                      <input name="days" type="number" min="1"
+                        className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium">Proposal</label>
-                    <textarea name="proposal" required rows={4} placeholder="Describe your approach and experience..." className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                    <textarea name="proposal" required rows={4}
+                      placeholder="Describe your approach, experience, and why you are the best choice for this project..."
+                      className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                   </div>
-                  <button type="submit" className="w-full rounded-card bg-blueprint-500 py-3 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors">Submit bid</button>
+                  <button type="submit"
+                    className="w-full rounded-card bg-blueprint-500 py-3 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors">
+                    Submit bid
+                  </button>
                 </form>
               </div>
             )}
+
             <h2 className="font-display text-xl font-semibold mt-10 mb-5">Bids ({bids.length})</h2>
-            {error&&<p className="text-sm text-red-600 mb-3">{error}</p>}
-            {bids.length===0?<p className="text-sm text-slate-500">No bids yet.</p>:(
+            {error && <p className="text-sm text-red-600 mb-3">{error}</p>}
+            {bids.length === 0 ? (
+              <p className="text-sm text-slate-500">No bids yet.</p>
+            ) : (
               <div className="grid sm:grid-cols-2 gap-4">
-                {bids.map((b:any)=>(
-                  <div key={b.id} className="crosshair rounded-card border border-blueprint-100 bg-white p-5">
+                {bids.map((b:any) => (
+                  <div key={b.id} className="rounded-card border border-blueprint-100 bg-white p-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="font-display font-semibold text-sm">{b.company_name}</span>
-                        {b.is_verified&&<span className="rounded-full bg-blueprint-50 px-2 py-0.5 text-xs font-mono text-blueprint-600">Verified</span>}
+                        {b.is_verified && (
+                          <span className="rounded-full bg-blueprint-50 px-2 py-0.5 text-xs font-mono text-blueprint-600">Verified</span>
+                        )}
                       </div>
                       <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-mono text-slate-500">{b.status}</span>
                     </div>
-                    <p className="mt-3 font-mono text-2xl font-semibold text-blueprint-600">{Number(b.amount).toLocaleString()} {b.currency}</p>
-                    {b.estimated_days&&<p className="text-xs text-slate-500 font-mono mt-1">{b.estimated_days} days est.</p>}
+                    <p className="mt-3 font-mono text-2xl font-semibold text-blueprint-600">
+                      {Number(b.amount).toLocaleString()} {b.currency}
+                    </p>
+                    {b.estimated_days && (
+                      <p className="text-xs text-slate-500 font-mono mt-1">{b.estimated_days} days est.</p>
+                    )}
                     <p className="mt-3 text-sm text-ink/80 line-clamp-3">{b.proposal_text}</p>
                     <div className="mt-4 flex gap-2">
-                      {b.status==='submitted'&&currentUser?.role==='customer'&&(
-                        <button onClick={()=>acceptBid(b.id)} className="flex-1 rounded-card bg-blueprint-500 py-2 text-sm font-medium text-white hover:bg-blueprint-600">Accept bid</button>
+                      {b.status === 'submitted' && currentUser?.role === 'customer' && (
+                        <button onClick={() => acceptBid(b.id)}
+                          className="flex-1 rounded-card bg-blueprint-500 py-2 text-sm font-medium text-white hover:bg-blueprint-600">
+                          Accept bid
+                        </button>
                       )}
-                      {currentUser?.role==='customer'&&(
-                        <button onClick={()=>startChat(b.company_id)} disabled={messaging===b.company_id}
+                      {currentUser?.role === 'customer' && (
+                        <button onClick={() => startChat(b.company_id)} disabled={messaging === b.company_id}
                           className="flex-1 rounded-card border border-blueprint-100 py-2 text-sm font-medium text-blueprint-600 hover:border-blueprint-500 disabled:opacity-60">
-                          {messaging===b.company_id?'Opening...':'Message'}
+                          {messaging === b.company_id ? 'Opening...' : 'Message'}
                         </button>
                       )}
                     </div>
@@ -146,14 +211,27 @@ export default function ProjectDetailPage() {
               </div>
             )}
           </div>
+
           <div className="space-y-4">
             <div className="rounded-card border border-blueprint-100 p-5">
               <h3 className="font-display font-semibold text-sm mb-3">Project details</h3>
               <dl className="space-y-2 text-sm">
-                <div className="flex justify-between"><dt className="text-slate-500">Status</dt><dd className="font-mono capitalize">{project.status}</dd></div>
-                <div className="flex justify-between"><dt className="text-slate-500">Bids</dt><dd className="font-mono">{project.bid_count}</dd></div>
-                <div className="flex justify-between"><dt className="text-slate-500">Category</dt><dd className="font-mono">{project.category_name||'â€”'}</dd></div>
-                <div className="flex justify-between"><dt className="text-slate-500">Visibility</dt><dd className="font-mono capitalize">{project.visibility}</dd></div>
+                <div className="flex justify-between">
+                  <dt className="text-slate-500">Status</dt>
+                  <dd className="font-mono capitalize">{project.status}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-slate-500">Bids</dt>
+                  <dd className="font-mono">{project.bid_count}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-slate-500">Category</dt>
+                  <dd className="font-mono">{project.category_name || 'None'}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-slate-500">Visibility</dt>
+                  <dd className="font-mono capitalize">{project.visibility}</dd>
+                </div>
               </dl>
               {project.visibility === 'invite_only' && currentUser?.role === 'customer' && (
                 <div className="mt-4">
@@ -162,20 +240,17 @@ export default function ProjectDetailPage() {
                       try {
                         const d = await api(`/projects/${project.id}/invite`, { method: 'POST' });
                         await navigator.clipboard.writeText(d.inviteUrl);
-                        alert('Invite link copied to clipboard!\n\n' + d.inviteUrl);
+                        alert('Invite link copied!\n\n' + d.inviteUrl);
                       } catch (e) {
                         alert('Failed to generate invite link.');
                       }
                     }}
-                    className="w-full rounded-card border border-blueprint-500 text-blueprint-600 py-2 text-sm font-medium hover:bg-blueprint-50 transition-colors"
-                  >
+                    className="w-full rounded-card border border-blueprint-500 text-blueprint-600 py-2 text-sm font-medium hover:bg-blueprint-50 transition-colors">
                     Copy invite link
                   </button>
-                  <p className="text-xs text-slate-400 mt-1 text-center">Share this link with contractors you want to invite</p>
+                  <p className="text-xs text-slate-400 mt-1 text-center">Share with contractors you want to invite</p>
                 </div>
               )}
-              <dl className="space-y-2 text-sm hidden">
-              </dl>
             </div>
             <Link href="/projects/new" className="block rounded-card bg-ink text-white p-5 text-center hover:bg-ink/90 transition-colors">
               <p className="font-semibold text-sm">Post a similar project</p>
@@ -187,6 +262,3 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
-
-
-
