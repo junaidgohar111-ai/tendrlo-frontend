@@ -21,16 +21,27 @@ export default function ProjectDetailPage() {
   }, [id]);
 
   async function acceptBid(bidId: string) {
-    try { await api(`/bids/${bidId}/accept`,{method:'POST'}); const d=await api(`/bids/project/${id}`); setBids(d.bids); }
-    catch(e){ setError(e instanceof Error?e.message:'Failed'); }
+    try {
+      await api(`/bids/${bidId}/accept`,{method:'POST'});
+      const d = await api(`/bids/project/${id}`);
+      setBids(d.bids);
+    } catch(e) {
+      setError(e instanceof Error ? e.message : 'Failed');
+    }
   }
 
   async function startChat(companyId: string) {
     setMessaging(companyId);
     try {
-      const d = await api('/messages/conversations',{method:'POST',body:JSON.stringify({projectId:id,companyId})});
+      const d = await api('/messages/conversations', {
+        method: 'POST',
+        body: JSON.stringify({ projectId: id, companyId })
+      });
       router.push(`/messages/${d.conversation.id}`);
-    } catch(e){ setError(e instanceof Error?e.message:'Failed'); setMessaging(null); }
+    } catch(e) {
+      setError(e instanceof Error ? e.message : 'Failed');
+      setMessaging(null);
+    }
   }
 
   function formatBudget() {
@@ -88,6 +99,10 @@ export default function ProjectDetailPage() {
             {project.status}
           </span>
         </div>
+
+        {project.cover_image_url && (
+          <img src={project.cover_image_url} alt={project.title} className="w-full h-64 object-cover rounded-card mt-6"/>
+        )}
 
         <div className="grid md:grid-cols-3 gap-8 mt-6">
           <div className="md:col-span-2">
@@ -200,7 +215,9 @@ export default function ProjectDetailPage() {
                         </button>
                       )}
                       {currentUser?.role === 'customer' && (
-                        <button onClick={() => startChat(b.company_id)} disabled={messaging === b.company_id}
+                        <button
+                          onClick={() => startChat(b.company_id)}
+                          disabled={messaging === b.company_id}
                           className="flex-1 rounded-card border border-blueprint-100 py-2 text-sm font-medium text-blueprint-600 hover:border-blueprint-500 disabled:opacity-60">
                           {messaging === b.company_id ? 'Opening...' : 'Message'}
                         </button>
