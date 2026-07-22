@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 
 const categories = [
   'Construction','Electrical','HVAC','Civil','Plumbing','Steel Fabrication',
@@ -33,7 +33,7 @@ export default function Home() {
             <Link href="/pricing" className="hover:text-ink">Pricing</Link>
           </nav>
 
-          {/* Auth buttons — visible on all sizes */}
+          {/* Auth buttons â€” visible on all sizes */}
           <div className="flex items-center gap-2">
             <Link href="/login" className="text-sm font-medium text-slate-500 hover:text-ink px-2 sm:px-3 py-2">
               Log in
@@ -85,11 +85,11 @@ export default function Home() {
               Post the scope.<br/>Let contractors bid for it.
             </h1>
             <p className="mt-4 text-base sm:text-lg text-slate-500 max-w-xl">
-              Construction, engineering, food, materials, and more — post unlimited projects free, compare quotations side by side, award with a verified contractor.
+              Construction, engineering, food, materials, and more â€” post unlimited projects free, compare quotations side by side, award with a verified contractor.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Link href="/signup?role=customer" className="rounded-card bg-blueprint-500 px-6 py-3.5 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors text-center">
-                Post a project — free
+                Post a project â€” free
               </Link>
               <Link href="/signup?role=company" className="rounded-card border border-blueprint-200 bg-white px-6 py-3.5 text-sm font-medium text-ink hover:border-blueprint-500 transition-colors text-center">
                 Register as a contractor
@@ -123,7 +123,7 @@ export default function Home() {
       </div>
     </div>
     <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
-      <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&q=80" alt="HVAC" className="w-full h-full object-cover"/>
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="HVAC" className="w-full h-full object-cover"/>
       <div className="absolute inset-0 bg-black/30 flex items-end p-3">
         <span className="text-white text-sm font-semibold">HVAC</span>
       </div>
@@ -173,7 +173,7 @@ export default function Home() {
           <div>
             <h2 className="font-display text-xl sm:text-2xl font-semibold">Ready to grow your business?</h2>
             <p className="mt-2 text-white/60 text-sm max-w-md">
-              Join contractors and customers on Tendrlo. Post projects and receive bids — completely free.
+              Join contractors and customers on Tendrlo. Post projects and receive bids â€” completely free.
             </p>
           </div>
           <Link href="/signup" className="shrink-0 rounded-card bg-white px-6 py-3 text-sm font-medium text-ink hover:bg-blue-50 transition-colors text-center">
@@ -185,7 +185,7 @@ export default function Home() {
       {/* ===== FOOTER ===== */}
       <footer className="border-t border-blueprint-100 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <span>© {new Date().getFullYear()} Tendrlo. All rights reserved.</span>
+          <span>Â© {new Date().getFullYear()} Tendrlo. All rights reserved.</span>
           <div className="flex gap-5">
             <Link href="/support" className="hover:text-ink">Support</Link>
             <Link href="/terms" className="hover:text-ink">Terms</Link>
