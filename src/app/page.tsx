@@ -107,7 +107,7 @@ export default function Home() {
         </div>
       </section>
 
-{/* ===== STATS/IMAGES SECTION ===== */}
+      {/* ===== STATS/IMAGES SECTION ===== */}
 <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
     <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
