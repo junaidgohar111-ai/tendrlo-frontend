@@ -26,7 +26,7 @@ export default function ProjectDetailPage() {
       await api('/bids/' + bidId + '/accept', {method:'POST'});
       const d = await api('/bids/project/' + id);
       setBids(d.bids);
-    } catch(e) { setError(e.message || 'Failed'); }
+    } catch(e: any) { setError(e?.message || 'Failed'); }
   }
 
   async function startChat(companyId: string) {
@@ -295,4 +295,5 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
