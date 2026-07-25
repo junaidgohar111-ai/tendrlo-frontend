@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -6,43 +6,38 @@ import Link from 'next/link';
 import { api } from '@/lib/api';
 
 export default function ProjectDetailPage() {
-  const { id } = useParams<{id:string}>();
+  const { id } = useParams();
   const router = useRouter();
-  const [project, setProject] = useState<any>(null);
-  const [bids, setBids] = useState<any[]>([]);
-  const [attachments, setAttachments] = useState<any[]>([]);
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [project, setProject] = useState(null);
+  const [bids, setBids] = useState([]);
+  const [attachments, setAttachments] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState('');
-  const [messaging, setMessaging] = useState<string|null>(null);
+  const [messaging, setMessaging] = useState(null);
 
   useEffect(() => {
     api('/auth/me').then(d=>setCurrentUser(d.user)).catch(()=>{});
-    api(`/projects/${id}`).then(d=>{setProject(d.project);setAttachments(d.attachments||[]);}).catch(e=>setError(e.message));
-    api(`/bids/project/${id}`).then(d=>setBids(d.bids)).catch(()=>{});
+    api('/projects/' + id).then(d=>{setProject(d.project);setAttachments(d.attachments||[]);}).catch(e=>setError(e.message));
+    api('/bids/project/' + id).then(d=>setBids(d.bids)).catch(()=>{});
   }, [id]);
 
-  async function acceptBid(bidId: string) {
+  async function acceptBid(bidId) {
     try {
-      await api(`/bids/${bidId}/accept`,{method:'POST'});
-      const d = await api(`/bids/project/${id}`);
+      await api('/bids/' + bidId + '/accept', {method:'POST'});
+      const d = await api('/bids/project/' + id);
       setBids(d.bids);
-    } catch(e) {
-      setError(e instanceof Error ? e.message : 'Failed');
-    }
+    } catch(e) { setError(e.message || 'Failed'); }
   }
 
-  async function startChat(companyId: string) {
+  async function startChat(companyId) {
     setMessaging(companyId);
     try {
       const d = await api('/messages/conversations', {
         method: 'POST',
         body: JSON.stringify({ projectId: id, companyId })
       });
-      router.push(`/messages/${d.conversation.id}`);
-    } catch(e) {
-      setError(e instanceof Error ? e.message : 'Failed');
-      setMessaging(null);
-    }
+      router.push('/messages/' + d.conversation.id);
+    } catch(e) { setError(e.message || 'Failed'); setMessaging(null); }
   }
 
   function formatBudget() {
@@ -55,13 +50,21 @@ export default function ProjectDetailPage() {
     return 'Budget not disclosed';
   }
 
-  if (!project && error) return React.createElement('main', {className: 'min-h-screen flex items-center justify-center'}, React.createElement('p', {className: 'text-slate-500'}, error));
+  if (!project && error) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-slate-500">{error}</p>
+      </main>
+    );
+  }
 
-  if (!project) return (
-    <main className="min-h-screen flex items-center justify-center">
-      <p className="text-slate-500">Loading...</p>
-    </main>
-  );
+  if (!project) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-slate-500">Loading...</p>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-white">
@@ -78,7 +81,9 @@ export default function ProjectDetailPage() {
             </Link>
           </div>
           <div className="flex gap-4">
-            <Link href="/messages" className="text-sm text-slate-500 hover:text-ink">Messages</Link>
+            {currentUser && currentUser.role === 'customer' && (
+              <Link href="/messages" className="text-sm text-slate-500 hover:text-ink">Messages</Link>
+            )}
             <Link href="/projects" className="text-sm text-slate-500 hover:text-ink">Browse</Link>
           </div>
         </div>
@@ -92,7 +97,7 @@ export default function ProjectDetailPage() {
               {project.location_city} · {project.status} · {project.bid_count} bids
             </p>
           </div>
-          <span className={`rounded-full px-3 py-1 text-xs font-mono uppercase ${project.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>
+          <span className={'rounded-full px-3 py-1 text-xs font-mono uppercase ' + (project.status==='open' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500')}>
             {project.status}
           </span>
         </div>
@@ -103,7 +108,7 @@ export default function ProjectDetailPage() {
 
         <div className="grid md:grid-cols-3 gap-8 mt-6">
           <div className="md:col-span-2">
-            <p className="text-sm leading-relaxed text-ink/80 whitespace-pre-line">{project.description}</p>
+            <p className="text-sm leading-relaxed whitespace-pre-line">{project.description}</p>
 
             <dl className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-sm">
               <div>
@@ -124,10 +129,10 @@ export default function ProjectDetailPage() {
               <div className="mt-8">
                 <h2 className="font-display text-lg font-semibold mb-3">Attachments</h2>
                 <div className="space-y-2">
-                  {attachments.map((a:any) => (
+                  {attachments.map((a) => (
                     <a key={a.id} href={a.file_url} target="_blank" rel="noopener noreferrer"
                       className="flex items-center gap-3 rounded-card border border-blueprint-100 px-4 py-3 hover:border-blueprint-500 transition-colors">
-                      <span className="text-sm text-blueprint-600 hover:underline">{a.file_name}</span>
+                      <span className="text-sm text-blueprint-600">{a.file_name}</span>
                       <span className="text-xs text-slate-400 font-mono ml-auto">{a.file_type}</span>
                     </a>
                   ))}
@@ -135,23 +140,30 @@ export default function ProjectDetailPage() {
               </div>
             )}
 
-            {currentUser?.role === 'company' && project.status === 'open' && (
+            {currentUser && currentUser.role === 'company' && project.status === 'open' && (
               <div className="rounded-card border border-blueprint-100 bg-white p-6 mt-8">
                 <h3 className="font-display font-semibold mb-4">Submit your bid</h3>
                 <form onSubmit={async (e) => {
                   e.preventDefault();
-                  const form = e.target as HTMLFormElement;
-                  const amount = (form.elements.namedItem('amount') as HTMLInputElement).value;
-                  const proposal = (form.elements.namedItem('proposal') as HTMLTextAreaElement).value; const bidLink = (form.elements.namedItem('bidLink') as HTMLInputElement)?.value;
-                  const days = (form.elements.namedItem('days') as HTMLInputElement).value;
+                  const form = e.target;
+                  const amount = form.elements.namedItem('amount').value;
+                  const proposal = form.elements.namedItem('proposal').value;
+                  const days = form.elements.namedItem('days').value;
+                  const bidLink = form.elements.namedItem('bidLink').value;
                   try {
-                    await api('/bids', { method:'POST', body:JSON.stringify({ projectId:id, amount:Number(amount), proposalText: proposal || 'Please see attached link for full quotation.', estimatedDays:days?Number(days):undefined, bidLink: bidLink || undefined }) });
+                    await api('/bids', { method:'POST', body:JSON.stringify({
+                      projectId: id,
+                      amount: Number(amount),
+                      proposalText: proposal || 'Please see attached link for full quotation.',
+                      estimatedDays: days ? Number(days) : undefined,
+                      bidLink: bidLink || undefined
+                    })});
                     alert('Bid submitted successfully!');
-                    const d = await api(`/bids/project/${id}`);
+                    const d = await api('/bids/project/' + id);
                     setBids(d.bids);
                     form.reset();
                   } catch(err) {
-                    alert(err instanceof Error ? err.message : 'Failed to submit bid.');
+                    alert(err.message || 'Failed to submit bid.');
                   }
                 }} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
@@ -167,9 +179,14 @@ export default function ProjectDetailPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Quotation link <span className="text-slate-400 font-normal">(recommended)</span></label><p className="text-xs text-slate-500 mt-0.5">Attach your quotation via Google Drive or Dropbox.</p><input name="bidLink" type="url" placeholder="https://drive.google.com/..." className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/><div><label className="text-sm font-medium">Cover note <span className="text-slate-400 font-normal">(optional)</span></label>
-                    <textarea name="proposal" required rows={4}
-                      placeholder="Describe your approach, experience, and why you are the best choice for this project..."
+                    <label className="text-sm font-medium">Quotation link (recommended)</label>
+                    <p className="text-xs text-slate-500 mt-0.5">Attach your quotation via Google Drive or Dropbox.</p>
+                    <input name="bidLink" type="url" placeholder="https://drive.google.com/..."
+                      className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Cover note (optional)</label>
+                    <textarea name="proposal" rows={3} placeholder="Brief note about your bid..."
                       className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                   </div>
                   <button type="submit"
@@ -186,7 +203,7 @@ export default function ProjectDetailPage() {
               <p className="text-sm text-slate-500">No bids yet.</p>
             ) : (
               <div className="grid sm:grid-cols-2 gap-4">
-                {bids.map((b:any) => (
+                {bids.map((b) => (
                   <div key={b.id} className="rounded-card border border-blueprint-100 bg-white p-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -203,18 +220,22 @@ export default function ProjectDetailPage() {
                     {b.estimated_days && (
                       <p className="text-xs text-slate-500 font-mono mt-1">{b.estimated_days} days est.</p>
                     )}
-                    <p className="mt-3 text-sm text-ink/80 line-clamp-3">{b.proposal_text}</p>
+                    <p className="mt-3 text-sm line-clamp-3">{b.proposal_text}</p>
+                    {b.bid_link && (
+                      <a href={b.bid_link} target="_blank" rel="noopener noreferrer"
+                        className="mt-2 flex items-center gap-1 text-sm text-blueprint-600 hover:underline">
+                        View quotation link
+                      </a>
+                    )}
                     <div className="mt-4 flex gap-2">
-                      {b.status === 'submitted' && currentUser?.role === 'customer' && (
+                      {b.status === 'submitted' && currentUser && currentUser.role === 'customer' && (
                         <button onClick={() => acceptBid(b.id)}
                           className="flex-1 rounded-card bg-blueprint-500 py-2 text-sm font-medium text-white hover:bg-blueprint-600">
                           Accept bid
                         </button>
                       )}
-                      {currentUser?.role === 'customer' && currentUser?.id !== null && (
-                        <button
-                          onClick={() => startChat(b.company_id)}
-                          disabled={messaging === b.company_id}
+                      {currentUser && currentUser.role === 'customer' && currentUser.id !== b.company_id && (
+                        <button onClick={() => startChat(b.company_id)} disabled={messaging === b.company_id}
                           className="flex-1 rounded-card border border-blueprint-100 py-2 text-sm font-medium text-blueprint-600 hover:border-blueprint-500 disabled:opacity-60">
                           {messaging === b.company_id ? 'Opening...' : 'Message'}
                         </button>
@@ -247,19 +268,17 @@ export default function ProjectDetailPage() {
                   <dd className="font-mono capitalize">{project.visibility}</dd>
                 </div>
               </dl>
-              {project.visibility === 'invite_only' && currentUser?.role === 'customer' && (
+              {project.visibility === 'invite_only' && currentUser && currentUser.role === 'customer' && (
                 <div className="mt-4">
-                  <button
-                    onClick={async () => {
-                      try {
-                        const d = await api(`/projects/${project.id}/invite`, { method: 'POST' });
-                        await navigator.clipboard.writeText(d.inviteUrl);
-                        alert('Invite link copied!\n\n' + d.inviteUrl);
-                      } catch (e) {
-                        alert('Failed to generate invite link.');
-                      }
-                    }}
-                    className="w-full rounded-card border border-blueprint-500 text-blueprint-600 py-2 text-sm font-medium hover:bg-blueprint-50 transition-colors">
+                  <button onClick={async () => {
+                    try {
+                      const d = await api('/projects/' + project.id + '/invite', { method: 'POST' });
+                      await navigator.clipboard.writeText(d.inviteUrl);
+                      alert('Invite link copied!');
+                    } catch (e) {
+                      alert('Failed to generate invite link.');
+                    }
+                  }} className="w-full rounded-card border border-blueprint-500 text-blueprint-600 py-2 text-sm font-medium hover:bg-blueprint-50 transition-colors">
                     Copy invite link
                   </button>
                   <p className="text-xs text-slate-400 mt-1 text-center">Share with contractors you want to invite</p>
@@ -276,10 +295,3 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
-
-
-
-
-
-
-
