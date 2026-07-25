@@ -1,4 +1,5 @@
 ﻿'use client';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -54,11 +55,7 @@ export default function ProjectDetailPage() {
     return 'Budget not disclosed';
   }
 
-  if (!project && error) return (
-    <main className="min-h-screen flex items-center justify-center">
-      <p className="text-slate-500">{error}</p>
-    </main>
-  );
+  if (!project && error) return React.createElement('main', {className: 'min-h-screen flex items-center justify-center'}, React.createElement('p', {className: 'text-slate-500'}, error));
 
   if (!project) return (
     <main className="min-h-screen flex items-center justify-center">
@@ -279,6 +276,8 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
+
 
 
 
