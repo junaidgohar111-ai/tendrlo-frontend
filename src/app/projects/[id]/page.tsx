@@ -13,7 +13,7 @@ export default function ProjectDetailPage() {
   const [attachments, setAttachments] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState('');
-  const [messaging, setMessaging] = useState(null);
+  const [messaging, setMessaging] = useState<string|null>(null);
 
   useEffect(() => {
     api('/auth/me').then(d=>setCurrentUser(d.user)).catch(()=>{});
@@ -295,5 +295,6 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
