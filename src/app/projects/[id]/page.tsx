@@ -145,10 +145,10 @@ export default function ProjectDetailPage() {
                   e.preventDefault();
                   const form = e.target as HTMLFormElement;
                   const amount = (form.elements.namedItem('amount') as HTMLInputElement).value;
-                  const proposal = (form.elements.namedItem('proposal') as HTMLTextAreaElement).value;
+                  const proposal = (form.elements.namedItem('proposal') as HTMLTextAreaElement).value; const bidLink = (form.elements.namedItem('bidLink') as HTMLInputElement)?.value;
                   const days = (form.elements.namedItem('days') as HTMLInputElement).value;
                   try {
-                    await api('/bids', { method:'POST', body:JSON.stringify({ projectId:id, amount:Number(amount), proposalText:proposal, estimatedDays:days?Number(days):undefined }) });
+                    await api('/bids', { method:'POST', body:JSON.stringify({ projectId:id, amount:Number(amount), proposalText: proposal || 'Please see attached link for full quotation.', estimatedDays:days?Number(days):undefined, bidLink: bidLink || undefined }) });
                     alert('Bid submitted successfully!');
                     const d = await api(`/bids/project/${id}`);
                     setBids(d.bids);
@@ -170,7 +170,7 @@ export default function ProjectDetailPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Proposal</label>
+                    <label className="text-sm font-medium">Quotation link <span className="text-slate-400 font-normal">(recommended)</span></label><p className="text-xs text-slate-500 mt-0.5">Attach your quotation via Google Drive or Dropbox.</p><input name="bidLink" type="url" placeholder="https://drive.google.com/..." className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/><div><label className="text-sm font-medium">Cover note <span className="text-slate-400 font-normal">(optional)</span></label>
                     <textarea name="proposal" required rows={4}
                       placeholder="Describe your approach, experience, and why you are the best choice for this project..."
                       className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
@@ -279,5 +279,8 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
+
+
 
 
