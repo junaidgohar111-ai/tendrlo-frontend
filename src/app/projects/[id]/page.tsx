@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -21,7 +21,7 @@ export default function ProjectDetailPage() {
     api('/bids/project/' + id).then(d=>setBids(d.bids)).catch(()=>{});
   }, [id]);
 
-  async function acceptBid(bidId) {
+  async function acceptBid(bidId: string) {
     try {
       await api('/bids/' + bidId + '/accept', {method:'POST'});
       const d = await api('/bids/project/' + id);
@@ -29,7 +29,7 @@ export default function ProjectDetailPage() {
     } catch(e) { setError(e.message || 'Failed'); }
   }
 
-  async function startChat(companyId) {
+  async function startChat(companyId: string) {
     setMessaging(companyId);
     try {
       const d = await api('/messages/conversations', {
@@ -94,7 +94,7 @@ export default function ProjectDetailPage() {
           <div>
             <h1 className="font-display text-2xl sm:text-3xl font-semibold">{project.title}</h1>
             <p className="text-sm text-slate-500 mt-1 font-mono">
-              {project.location_city} · {project.status} · {project.bid_count} bids
+              {project.location_city} Â· {project.status} Â· {project.bid_count} bids
             </p>
           </div>
           <span className={'rounded-full px-3 py-1 text-xs font-mono uppercase ' + (project.status==='open' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500')}>
@@ -295,3 +295,4 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
