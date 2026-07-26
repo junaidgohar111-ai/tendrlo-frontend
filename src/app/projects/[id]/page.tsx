@@ -8,7 +8,7 @@ import { api } from '@/lib/api';
 export default function ProjectDetailPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [project, setProject] = useState(null);
+  const [project, setProject] = useState<any>(null);
   const [bids, setBids] = useState([]);
   const [attachments, setAttachments] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
