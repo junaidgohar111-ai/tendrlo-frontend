@@ -2,6 +2,7 @@
 import { useState, FormEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { api, setToken } from '@/lib/api';
 
 function Field({ id,label,error,required,children }:{id:string;label:string;error?:string;required?:boolean;children:React.ReactNode}) {
@@ -18,6 +19,7 @@ export default function SignupPage() {
   const router = useRouter();
   const logoRef = useRef<HTMLInputElement>(null);
   const certRef = useRef<HTMLInputElement>(null);
+  const recaptchaRef = useRef<any>(null);
   const [role, setRole] = useState<'customer'|'company'>('customer');
   const [fullName, setFullName] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -27,6 +29,7 @@ export default function SignupPage() {
   const [phone, setPhone] = useState('');
   const [logoFile, setLogoFile] = useState<File|null>(null);
   const [certFile, setCertFile] = useState<File|null>(null);
+  const [captchaToken, setCaptchaToken] = useState('');
   const [errors, setErrors] = useState<Record<string,string>>({});
   const [serverError, setServerError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -43,6 +46,7 @@ export default function SignupPage() {
       if (!phone.trim()) e.phone = 'Phone number is required.';
       if (!certFile) e.cert = 'Government registration certificate (PDF) is required.';
     }
+    if (!captchaToken) e.captcha = 'Please complete the reCAPTCHA verification.';
     return e;
   }
 
@@ -56,7 +60,7 @@ export default function SignupPage() {
     try {
       const { token } = await api('/auth/signup', {
         method: 'POST',
-        body: JSON.stringify({ role, fullName:fullName.trim(), companyName:role==='company'?companyName.trim():undefined, email:email.trim().toLowerCase(), password, phone:phone.trim()||undefined }),
+        body: JSON.stringify({ role, fullName:fullName.trim(), companyName:role==='company'?companyName.trim():undefined, email:email.trim().toLowerCase(), password, phone:phone.trim()||undefined, captchaToken }),
       });
       setToken(token);
       if (role === 'company' && (logoFile || certFile)) {
@@ -70,6 +74,8 @@ export default function SignupPage() {
       router.push('/dashboard');
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Something went wrong.');
+      recaptchaRef.current?.reset();
+      setCaptchaToken('');
     } finally { setLoading(false); }
   }
 
@@ -145,6 +151,15 @@ export default function SignupPage() {
             </div>
             {errors.password&&<p className="text-xs text-red-500 mt-1">{errors.password}</p>}
             <p className="text-xs text-slate-400 mt-1">Min 8 chars, with uppercase and a number.</p>
+          </div>
+
+          <div>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeYOGYtAAAAACxVNvdwZalBpxFH81DuBk8Tnvl3'}
+              onChange={(token) => setCaptchaToken(token || '')}
+            />
+            {errors.captcha && <p className="text-xs text-red-500 mt-1">{errors.captcha}</p>}
           </div>
 
           {serverError&&<div className="rounded-card bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">{serverError}</div>}
