@@ -9,8 +9,8 @@ export default function ProjectDetailPage() {
   const { id } = useParams();
   const router = useRouter();
   const [project, setProject] = useState<any>(null);
-  const [bids, setBids] = useState([]);
-  const [attachments, setAttachments] = useState([]);
+  const [bids, setBids] = useState<any[]>([]);
+  const [attachments, setAttachments] = useState<any[]>([]);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [error, setError] = useState('');
   const [messaging, setMessaging] = useState<string|null>(null);
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
