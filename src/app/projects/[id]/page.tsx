@@ -11,7 +11,7 @@ export default function ProjectDetailPage() {
   const [project, setProject] = useState<any>(null);
   const [bids, setBids] = useState([]);
   const [attachments, setAttachments] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const [error, setError] = useState('');
   const [messaging, setMessaging] = useState<string|null>(null);
 
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
