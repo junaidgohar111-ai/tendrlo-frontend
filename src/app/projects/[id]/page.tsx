@@ -285,16 +285,14 @@ export default function ProjectDetailPage() {
                 </div>
               )}
             </div>
-            <Link href="/projects/new" className="block rounded-card bg-ink text-white p-5 text-center hover:bg-ink/90 transition-colors">
-              <p className="font-semibold text-sm">Post a similar project</p>
-              <p className="text-xs text-white/60 mt-1">Free, unlimited</p>
-            </Link>
+            
           </div>
         </div>
       </section>
     </main>
   );
 }
+
 
 
 
