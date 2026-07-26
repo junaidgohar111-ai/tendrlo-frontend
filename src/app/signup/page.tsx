@@ -23,8 +23,8 @@ export default function SignupPage() {
   const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState('');
-  const [about, setAbout] = useState('');
   const [logoFile, setLogoFile] = useState<File|null>(null);
   const [certFile, setCertFile] = useState<File|null>(null);
   const [errors, setErrors] = useState<Record<string,string>>({});
@@ -79,8 +79,13 @@ export default function SignupPage() {
   return (
     <main className="min-h-screen bp-grid flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md rounded-card border border-blueprint-100 bg-white p-6 sm:p-8">
-        <div className="flex items-center gap-2"><button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors"><svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg></button><Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link></div>
-        <h1 className="font-display text-2xl font-semibold mt-5">Create an account</h1>
+        <div className="flex items-center gap-2 mb-4">
+          <button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
+            <svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <Link href="/" className="font-display text-xl font-semibold">tendrlo<span className="text-blueprint-500">.</span></Link>
+        </div>
+        <h1 className="font-display text-2xl font-semibold">Create an account</h1>
 
         <div className="mt-5 grid grid-cols-2 gap-2 rounded-card bg-blue-50 p-1">
           {(['customer','company'] as const).map(r=>(
@@ -103,9 +108,6 @@ export default function SignupPage() {
             <Field id="phone" label="Phone number" error={errors.phone} required>
               <input id="phone" type="tel" autoComplete="tel" placeholder="+966 5xxxxxxxx" value={phone} onChange={e=>setPhone(e.target.value)} className={errors.phone?inpErr:inp}/>
             </Field>
-            <Field id="about" label="About your company (optional)">
-              <textarea id="about" rows={3} placeholder="Brief description of your services..." value={about} onChange={e=>setAbout(e.target.value)} className={inp}/>
-            </Field>
             <div>
               <label className="text-sm font-medium">Company logo <span className="text-slate-400">(optional)</span></label>
               <div onClick={()=>logoRef.current?.click()} className="mt-1 border-2 border-dashed border-blueprint-100 rounded-card p-4 text-center cursor-pointer hover:border-blueprint-500 transition-colors">
@@ -127,10 +129,23 @@ export default function SignupPage() {
           <Field id="email" label="Email" error={errors.email} required>
             <input id="email" type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} className={errors.email?inpErr:inp}/>
           </Field>
-          <Field id="password" label="Password" error={errors.password} required>
-            <input id="password" type="password" autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} className={errors.password?inpErr:inp}/>
+
+          <div>
+            <label className="text-sm font-medium" htmlFor="password">Password <span className="text-red-500">*</span></label>
+            <div className="relative">
+              <input id="password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)}
+                className={`${errors.password?inpErr:inp} pr-10`}/>
+              <button type="button" onClick={()=>setShowPassword(!showPassword)} className="absolute right-3 top-3.5 text-slate-400 hover:text-slate-600">
+                {showPassword ? (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 4.411m0 0L21 21"/></svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                )}
+              </button>
+            </div>
+            {errors.password&&<p className="text-xs text-red-500 mt-1">{errors.password}</p>}
             <p className="text-xs text-slate-400 mt-1">Min 8 chars, with uppercase and a number.</p>
-          </Field>
+          </div>
 
           {serverError&&<div className="rounded-card bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">{serverError}</div>}
 
