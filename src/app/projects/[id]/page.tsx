@@ -146,10 +146,10 @@ export default function ProjectDetailPage() {
                 <form onSubmit={async (e) => {
                   e.preventDefault();
                   const form = e.target as HTMLFormElement;
-                  const amount = form.elements.namedItem('amount').value;
-                  const proposal = form.elements.namedItem('proposal').value;
-                  const days = form.elements.namedItem('days').value;
-                  const bidLink = form.elements.namedItem('bidLink').value;
+                  const amount = (form.elements.namedItem('amount') as HTMLInputElement)?.value;
+                  const proposal = (form.elements.namedItem('proposal') as HTMLTextAreaElement)?.value;
+                  const days = (form.elements.namedItem('days') as HTMLInputElement)?.value;
+                  const bidLink = (form.elements.namedItem('bidLink') as HTMLInputElement)?.value;
                   try {
                     await api('/bids', { method:'POST', body:JSON.stringify({
                       projectId: id,
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
