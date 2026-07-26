@@ -145,11 +145,11 @@ export default function ProjectDetailPage() {
                 <h3 className="font-display font-semibold mb-4">Submit your bid</h3>
                 <form onSubmit={async (e) => {
                   e.preventDefault();
-                  const form = e.target as HTMLFormElement;
-                  const amount = (form.elements.namedItem('amount') as HTMLInputElement)?.value;
-                  const proposal = (form.elements.namedItem('proposal') as HTMLTextAreaElement)?.value;
-                  const days = (form.elements.namedItem('days') as HTMLInputElement)?.value;
-                  const bidLink = (form.elements.namedItem('bidLink') as HTMLInputElement)?.value;
+                  const form = e.target as HTMLFormElement; const getVal = (name: string) => (form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null)?.value || '';
+                  const amount = getVal('amount');
+                  const proposal = getVal('proposal');
+                  const days = getVal('days');
+                  const bidLink = getVal('bidLink');
                   try {
                     await api('/bids', { method:'POST', body:JSON.stringify({
                       projectId: id,
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
