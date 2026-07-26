@@ -162,7 +162,7 @@ export default function ProjectDetailPage() {
                     const d = await api('/bids/project/' + id);
                     setBids(d.bids);
                     form.reset();
-                  } catch(err) {
+                  } catch(err: any) {
                     alert(err.message || 'Failed to submit bid.');
                   }
                 }} className="space-y-4">
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
