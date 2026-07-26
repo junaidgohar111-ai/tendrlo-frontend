@@ -37,7 +37,7 @@ export default function ProjectDetailPage() {
         body: JSON.stringify({ projectId: id, companyId })
       });
       router.push('/messages/' + d.conversation.id);
-    } catch(e) { setError(e.message || 'Failed'); setMessaging(null); }
+    } catch(e: any) { setError(e?.message || 'Failed'); setMessaging(null); }
   }
 
   function formatBudget() {
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
