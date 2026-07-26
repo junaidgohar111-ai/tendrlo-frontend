@@ -145,7 +145,7 @@ export default function ProjectDetailPage() {
                 <h3 className="font-display font-semibold mb-4">Submit your bid</h3>
                 <form onSubmit={async (e) => {
                   e.preventDefault();
-                  const form = e.target;
+                  const form = e.target as HTMLFormElement;
                   const amount = form.elements.namedItem('amount').value;
                   const proposal = form.elements.namedItem('proposal').value;
                   const days = form.elements.namedItem('days').value;
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
