@@ -38,10 +38,11 @@ export default function TermsPage() {
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">6. Contact</h2>
-            <p>For questions about these terms, contact us at <a href="mailto:legal@tendrlo.com" className="text-blueprint-600 hover:underline">legal@tendrlo.com</a></p>
+            <p>For questions about these terms, contact us at <a href="mailto:support@tendrlo.com" className="text-blueprint-600 hover:underline">support@tendrlo.com</a></p>
           </div>
         </div>
       </section>
     </main>
   );
 }
+
