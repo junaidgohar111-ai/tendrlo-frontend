@@ -26,11 +26,11 @@ export default function PrivacyPage() {
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">3. Data Storage</h2>
-            <p>Your data is stored securely on Neon (PostgreSQL database) and AWS S3 (file storage). All data is encrypted in transit and at rest.</p>
+            <p>Your data is stored securely on enterprise-grade cloud infrastructure. All data is encrypted in transit and at rest using industry-standard protocols.</p>
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">4. Data Sharing</h2>
-            <p>We do not sell your personal data. We share data only with service providers necessary to operate our platform (AWS, Stripe for payments) and when required by law.</p>
+            <p>We do not sell your personal data. We share data only with trusted service providers necessary to operate our platform and when required by law.</p>
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">5. Your Rights</h2>
@@ -49,4 +49,5 @@ export default function PrivacyPage() {
     </main>
   );
 }
+
 
