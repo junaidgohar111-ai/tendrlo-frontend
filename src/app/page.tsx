@@ -129,7 +129,7 @@ export default function Home() {
       </div>
     </div>
     <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
-      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80" alt="Maintenance" className="w-full h-full object-cover"/>
+      <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80" alt="Maintenance" className="w-full h-full object-cover"/>
       <div className="absolute inset-0 bg-black/30 flex items-end p-3">
         <span className="text-white text-sm font-semibold">Maintenance</span>
       </div>
@@ -197,5 +197,6 @@ export default function Home() {
     </main>
   );
 }
+
 
 
