@@ -21,11 +21,7 @@ export default function SupportPage() {
             <p className="text-slate-500 text-sm mb-2">Send us an email and we will respond within 24 hours.</p>
             <a href="mailto:support@tendrlo.com" className="text-blueprint-600 font-medium hover:underline">support@tendrlo.com</a>
           </div>
-          <div className="rounded-card border border-blueprint-100 p-6">
-            <h2 className="font-display font-semibold text-lg mb-1">WhatsApp</h2>
-            <p className="text-slate-500 text-sm mb-2">Chat with us on WhatsApp for quick support.</p>
-            <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer" className="text-blueprint-600 font-medium hover:underline">Chat on WhatsApp</a>
-          </div>
+        
           <div className="rounded-card border border-blueprint-100 p-6">
             <h2 className="font-display font-semibold text-lg mb-3">Frequently Asked Questions</h2>
             <div className="space-y-4">
