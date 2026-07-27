@@ -25,7 +25,7 @@ function ResetPasswordForm() {
       const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/auth/password-reset/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, password }),
+        body: JSON.stringify({ token, newPassword: password }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Failed.'); return; }
@@ -83,4 +83,5 @@ export default function ResetPasswordPage() {
     </main>
   );
 }
+
 
