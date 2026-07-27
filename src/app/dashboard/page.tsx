@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api, clearToken } from '@/lib/api';
@@ -148,20 +148,7 @@ export default function Dashboard() {
             ) : (
               <div className="grid sm:grid-cols-2 gap-4">
                 {projects.map((p: any) => (
-                  <Link key={p.id} href={`/projects/${p.id}`}
-                    className="rounded-card border border-blueprint-100 bg-white p-5 hover:border-blueprint-500 transition-colors">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-display font-semibold text-sm">{p.title}</h3>
-                      <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-mono uppercase ${p.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>
-                        {p.status}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-1">{p.location_city}</p>
-                    <div className="mt-3 flex items-center justify-between text-xs font-mono text-slate-500">
-                      <span>{formatBudget(p)}</span>
-                      <span>{p.bid_count} bid{p.bid_count !== '1' ? 's' : ''}</span>
-                    </div>
-                  </Link>
+                  <div key={p.id} className="rounded-card border border-blueprint-100 bg-white p-5 hover:border-blueprint-500 transition-colors"><div className="flex items-start justify-between gap-2"><Link href={`/projects/${p.id}`} className="flex-1"><h3 className="font-display font-semibold text-sm">{p.title}</h3><p className="text-xs text-slate-500 mt-1">{p.location_city}</p><div className="mt-3 flex items-center justify-between text-xs font-mono text-slate-500"><span>{formatBudget(p)}</span><span>{p.bid_count} bid{p.bid_count !== '1' ? 's' : ''}</span></div></Link><div className="flex flex-col items-end gap-2"><span className={`rounded-full px-2.5 py-0.5 text-xs font-mono uppercase ${p.status==='open'?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>{p.status}</span><button onClick={async () => { if (!confirm('Delete this project? This cannot be undone.')) return; try { await api(`/projects/${p.id}`, { method: 'DELETE' }); setProjects(projects.filter((x: any) => x.id !== p.id)); } catch(e: any) { alert(e.message || 'Failed to delete.'); } }} className="text-xs text-red-500 hover:text-red-700 hover:underline">Delete</button></div></div></div>
                 ))}
               </div>
             )}
