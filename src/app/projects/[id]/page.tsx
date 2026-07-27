@@ -94,7 +94,7 @@ export default function ProjectDetailPage() {
           <div>
             <h1 className="font-display text-2xl sm:text-3xl font-semibold">{project.title}</h1>
             <p className="text-sm text-slate-500 mt-1 font-mono">
-              {project.location_city} Â· {project.status} Â· {project.bid_count} bids
+              {project.location_city} · {project.status} · {project.bid_count} bids
             </p>
           </div>
           <span className={'rounded-full px-3 py-1 text-xs font-mono uppercase ' + (project.status==='open' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500')}>
@@ -292,6 +292,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
