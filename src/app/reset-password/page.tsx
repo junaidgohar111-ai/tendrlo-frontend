@@ -69,7 +69,7 @@ function ResetPasswordForm() {
           <label className="text-sm font-medium">New password</label>
           <div className="relative">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? 'text' : 'password'} autoComplete="new-password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Min 8 chars, uppercase and number"
@@ -88,7 +88,7 @@ function ResetPasswordForm() {
         <div>
           <label className="text-sm font-medium">Confirm password</label>
           <input
-            type="password"
+            type="password" autoComplete="new-password"
             value={confirm}
             onChange={e => setConfirm(e.target.value)}
             placeholder="Re-enter your new password"
