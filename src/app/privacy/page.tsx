@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">5. Your Rights</h2>
-            <p>You can request access to, correction of, or deletion of your personal data at any time by contacting us at <a href="mailto:privacy@tendrlo.com" className="text-blueprint-600 hover:underline">privacy@tendrlo.com</a></p>
+            <p>You can request access to, correction of, or deletion of your personal data at any time by contacting us at <a href="mailto:support@tendrlo.com" className="text-blueprint-600 hover:underline">support@tendrlo.com</a></p>
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">6. Cookies</h2>
@@ -42,10 +42,11 @@ export default function PrivacyPage() {
           </div>
           <div>
             <h2 className="font-display font-semibold text-lg mb-2">7. Contact</h2>
-            <p>For privacy questions, contact us at <a href="mailto:privacy@tendrlo.com" className="text-blueprint-600 hover:underline">privacy@tendrlo.com</a></p>
+            <p>For privacy questions, contact us at <a href="mailto:support@tendrlo.com" className="text-blueprint-600 hover:underline">support@tendrlo.com</a></p>
           </div>
         </div>
       </section>
     </main>
   );
 }
+
