@@ -5,6 +5,21 @@ import Link from 'next/link';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { api, setToken } from '@/lib/api';
 
+const COUNTRY_CODES = [
+  { code: '+966', flag: '🇸🇦', name: 'Saudi Arabia' },
+  { code: '+92', flag: '🇵🇰', name: 'Pakistan' },
+  { code: '+971', flag: '🇦🇪', name: 'UAE' },
+  { code: '+1', flag: '🇺🇸', name: 'USA' },
+  { code: '+44', flag: '🇬🇧', name: 'UK' },
+  { code: '+91', flag: '🇮🇳', name: 'India' },
+  { code: '+20', flag: '🇪🇬', name: 'Egypt' },
+  { code: '+962', flag: '🇯🇴', name: 'Jordan' },
+  { code: '+965', flag: '🇰🇼', name: 'Kuwait' },
+  { code: '+968', flag: '🇴🇲', name: 'Oman' },
+  { code: '+974', flag: '🇶🇦', name: 'Qatar' },
+  { code: '+973', flag: '🇧🇭', name: 'Bahrain' },
+];
+
 function Field({ id,label,error,required,children }:{id:string;label:string;error?:string;required?:boolean;children:React.ReactNode}) {
   return (
     <div>
@@ -26,7 +41,8 @@ export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [phoneCode, setPhoneCode] = useState('+966');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [logoFile, setLogoFile] = useState<File|null>(null);
   const [certFile, setCertFile] = useState<File|null>(null);
   const [captchaToken, setCaptchaToken] = useState('');
@@ -41,9 +57,9 @@ export default function SignupPage() {
     if (password.length < 8) e.password = 'Password must be at least 8 characters.';
     if (!/[A-Z]/.test(password)) e.password = 'Password must include at least one uppercase letter.';
     if (!/[0-9]/.test(password)) e.password = 'Password must include at least one number.';
+    if (!phoneNumber.trim()) e.phone = 'Phone number is required.';
     if (role === 'company') {
       if (!companyName.trim() || companyName.trim().length < 2) e.companyName = 'Company name is required.';
-      if (!phone.trim()) e.phone = 'Phone number is required.';
       if (!certFile) e.cert = 'Government registration certificate (PDF) is required.';
     }
     if (!captchaToken) e.captcha = 'Please complete the reCAPTCHA verification.';
@@ -60,7 +76,15 @@ export default function SignupPage() {
     try {
       const { token } = await api('/auth/signup', {
         method: 'POST',
-        body: JSON.stringify({ role, fullName:fullName.trim(), companyName:role==='company'?companyName.trim():undefined, email:email.trim().toLowerCase(), password, phone:phone.trim()||undefined, captchaToken }),
+        body: JSON.stringify({
+          role,
+          fullName: fullName.trim(),
+          companyName: role==='company' ? companyName.trim() : undefined,
+          email: email.trim().toLowerCase(),
+          password,
+          phone: phoneCode + phoneNumber.trim(),
+          captchaToken,
+        }),
       });
       setToken(token);
       if (role === 'company' && (logoFile || certFile)) {
@@ -111,9 +135,6 @@ export default function SignupPage() {
             <Field id="companyName" label="Company name" error={errors.companyName} required>
               <input id="companyName" autoComplete="organization" value={companyName} onChange={e=>setCompanyName(e.target.value)} className={errors.companyName?inpErr:inp}/>
             </Field>
-            <Field id="phone" label="Phone number" error={errors.phone} required>
-              <input id="phone" type="tel" autoComplete="tel" placeholder="+966 5xxxxxxxx" value={phone} onChange={e=>setPhone(e.target.value)} className={errors.phone?inpErr:inp}/>
-            </Field>
             <div>
               <label className="text-sm font-medium">Company logo <span className="text-slate-400">(optional)</span></label>
               <div onClick={()=>logoRef.current?.click()} className="mt-1 border-2 border-dashed border-blueprint-100 rounded-card p-4 text-center cursor-pointer hover:border-blueprint-500 transition-colors">
@@ -131,6 +152,22 @@ export default function SignupPage() {
               {errors.cert&&<p className="text-xs text-red-500 mt-1">{errors.cert}</p>}
             </div>
           </>}
+
+          <div>
+            <label className="text-sm font-medium">Phone number <span className="text-red-500">*</span></label>
+            <div className="flex gap-2 mt-1">
+              <select value={phoneCode} onChange={e=>setPhoneCode(e.target.value)}
+                className="rounded-card border border-blueprint-100 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500">
+                {COUNTRY_CODES.map(c=>(
+                  <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
+                ))}
+              </select>
+              <input id="phone" type="tel" value={phoneNumber} onChange={e=>setPhoneNumber(e.target.value)}
+                placeholder="5xxxxxxxx"
+                className={`flex-1 ${errors.phone?inpErr:inp}`}/>
+            </div>
+            {errors.phone&&<p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
+          </div>
 
           <Field id="email" label="Email" error={errors.email} required>
             <input id="email" type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} className={errors.email?inpErr:inp}/>
