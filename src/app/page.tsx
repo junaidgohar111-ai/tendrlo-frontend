@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link';
 
 const categories = [
-  'Construction','Electrical','HVAC','Civil','Plumbing','Steel Fabrication',
+  'Construction','Electrical','Food &amp; Catering','Civil','Plumbing','Steel Fabrication',
   'Facility Management','Manufacturing','Road Works','Equipment Rental',
   'Maintenance','IT','Food & Catering','Raw Materials','Furniture','Others',
 ];
@@ -85,7 +85,7 @@ export default function Home() {
               Post the scope.<br/>Let contractors bid for it.
             </h1>
             <p className="mt-4 text-base sm:text-lg text-slate-500 max-w-xl">
-              Construction, engineering, food, materials, and more - post unlimited projects free, compare quotations side by side, award with a verified contractor.
+              Construction, Supply Chain, food, materials, and more - post unlimited projects free, compare quotations side by side, award with a verified contractor.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Link href="/signup?role=customer" className="rounded-card bg-blueprint-500 px-6 py-3.5 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors text-center">
@@ -117,21 +117,21 @@ export default function Home() {
       </div>
     </div>
     <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
-      <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&q=80" alt="Engineering" className="w-full h-full object-cover"/>
+      <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=80" alt="Supply Chain" className="w-full h-full object-cover"/>
       <div className="absolute inset-0 bg-black/30 flex items-end p-3">
-        <span className="text-white text-sm font-semibold">Engineering</span>
+        <span className="text-white text-sm font-semibold">Supply Chain</span>
       </div>
     </div>
     <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="HVAC" className="w-full h-full object-cover"/>
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Food &amp; Catering" className="w-full h-full object-cover"/>
       <div className="absolute inset-0 bg-black/30 flex items-end p-3">
-        <span className="text-white text-sm font-semibold">HVAC</span>
+        <span className="text-white text-sm font-semibold">Food &amp; Catering</span>
       </div>
     </div>
     <div className="relative rounded-card overflow-hidden h-48 sm:h-64">
-      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Civil Works" className="w-full h-full object-cover"/>
+      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80" alt="Maintenance" className="w-full h-full object-cover"/>
       <div className="absolute inset-0 bg-black/30 flex items-end p-3">
-        <span className="text-white text-sm font-semibold">Civil Works</span>
+        <span className="text-white text-sm font-semibold">Maintenance</span>
       </div>
     </div>
   </div>
@@ -197,4 +197,5 @@ export default function Home() {
     </main>
   );
 }
+
 
