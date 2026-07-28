@@ -28,7 +28,7 @@ function useInView() {
 }
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(true);
   const cats = useInView();
   const howIt = useInView();
   const cta = useInView();
