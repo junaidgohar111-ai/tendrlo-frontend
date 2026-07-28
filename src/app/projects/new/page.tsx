@@ -192,7 +192,7 @@ export default function NewProjectPage() {
             <input
               value={title}
               onChange={e => setTitle(e.target.value)}
-              placeholder="e.g. HVAC, Civil, MEP, Supply Chain" maxLength={200}
+              placeholder="e.g. HVAC, Civil, MEP, Supply Chain" maxLength={200} maxLength={200}
               className={inp}
             />
             {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title}</p>}
@@ -205,7 +205,7 @@ export default function NewProjectPage() {
               rows={6}
               value={description}
               onChange={e => setDescription(e.target.value)}
-              maxLength={10000} placeholder="Describe what needs to be done, materials, site access, and any constraints."
+              maxLength={10000} placeholder="Describe what needs to be done, materials, site access, and any constraints." maxLength={5000}
               className={inp}
             />
             {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description}</p>}
@@ -215,7 +215,7 @@ export default function NewProjectPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium">City <span className="text-red-500">*</span></label>
-              <input value={city} onChange={e => setCity(e.target.value)} className={inp}/>
+              <input value={city} onChange={e => setCity(e.target.value)} maxLength={100} className={inp}/>
               {errors.city && <p className="text-xs text-red-500 mt-1">{errors.city}</p>}
             </div>
             <div>
@@ -240,12 +240,12 @@ export default function NewProjectPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium">Budget min <span className="text-red-500">*</span></label>
-              <input type="number" min="0" value={budgetMin} onChange={e => setBudgetMin(e.target.value)} className={inp}/>
+              <input type="number" min="0" max="999999999999999" value={budgetMin} onChange={e => setBudgetMin(e.target.value)} className={inp}/>
               {errors.budgetMin && <p className="text-xs text-red-500 mt-1">{errors.budgetMin}</p>}
             </div>
             <div>
               <label className="text-sm font-medium">Budget max</label>
-              <input type="number" min="0" value={budgetMax} onChange={e => setBudgetMax(e.target.value)} className={inp}/>
+              <input type="number" min="0" max="999999999999999" value={budgetMax} onChange={e => setBudgetMax(e.target.value)} className={inp}/>
             </div>
           </div>
 
