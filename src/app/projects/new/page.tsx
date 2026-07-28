@@ -192,7 +192,7 @@ export default function NewProjectPage() {
             <input
               value={title}
               onChange={e => setTitle(e.target.value)}
-              placeholder="e.g. HVAC, Civil, MEP, Supply Chain" maxLength={200} maxLength={200}
+              placeholder="e.g. HVAC, Civil, MEP, Supply Chain" maxLength={200}
               className={inp}
             />
             {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title}</p>}
@@ -355,3 +355,4 @@ export default function NewProjectPage() {
     </main>
   );
 }
+
