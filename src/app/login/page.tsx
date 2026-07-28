@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -39,13 +39,13 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
           <div>
             <label className="text-sm font-medium" htmlFor="email">Email</label>
-            <input id="email" type="email" required autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)}
+            <input id="email" type="email" required autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} maxLength={254}
               className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
           </div>
           <div>
             <label className="text-sm font-medium" htmlFor="password">Password</label>
             <div className="relative">
-              <input id="password" type={showPassword ? 'text' : 'password'} required autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)}
+              <input id="password" type={showPassword ? 'text' : 'password'} required autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} maxLength={128}
                 className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
               <button type="button" onClick={()=>setShowPassword(!showPassword)} className="absolute right-3 top-3.5 text-slate-400 hover:text-slate-600">
                 {showPassword ? (

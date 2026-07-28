@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, FormEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -6,18 +6,18 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { api, setToken } from '@/lib/api';
 
 const COUNTRY_CODES = [
-  { code: '+966', flag: '🇸🇦', name: 'Saudi Arabia' },
-  { code: '+92', flag: '🇵🇰', name: 'Pakistan' },
-  { code: '+971', flag: '🇦🇪', name: 'UAE' },
-  { code: '+1', flag: '🇺🇸', name: 'USA' },
-  { code: '+44', flag: '🇬🇧', name: 'UK' },
-  { code: '+91', flag: '🇮🇳', name: 'India' },
-  { code: '+20', flag: '🇪🇬', name: 'Egypt' },
-  { code: '+962', flag: '🇯🇴', name: 'Jordan' },
-  { code: '+965', flag: '🇰🇼', name: 'Kuwait' },
-  { code: '+968', flag: '🇴🇲', name: 'Oman' },
-  { code: '+974', flag: '🇶🇦', name: 'Qatar' },
-  { code: '+973', flag: '🇧🇭', name: 'Bahrain' },
+  { code: '+966', flag: 'ðŸ‡¸ðŸ‡¦', name: 'Saudi Arabia' },
+  { code: '+92', flag: 'ðŸ‡µðŸ‡°', name: 'Pakistan' },
+  { code: '+971', flag: 'ðŸ‡¦ðŸ‡ª', name: 'UAE' },
+  { code: '+1', flag: 'ðŸ‡ºðŸ‡¸', name: 'USA' },
+  { code: '+44', flag: 'ðŸ‡¬ðŸ‡§', name: 'UK' },
+  { code: '+91', flag: 'ðŸ‡®ðŸ‡³', name: 'India' },
+  { code: '+20', flag: 'ðŸ‡ªðŸ‡¬', name: 'Egypt' },
+  { code: '+962', flag: 'ðŸ‡¯ðŸ‡´', name: 'Jordan' },
+  { code: '+965', flag: 'ðŸ‡°ðŸ‡¼', name: 'Kuwait' },
+  { code: '+968', flag: 'ðŸ‡´ðŸ‡²', name: 'Oman' },
+  { code: '+974', flag: 'ðŸ‡¶ðŸ‡¦', name: 'Qatar' },
+  { code: '+973', flag: 'ðŸ‡§ðŸ‡­', name: 'Bahrain' },
 ];
 
 function Field({ id,label,error,required,children }:{id:string;label:string;error?:string;required?:boolean;children:React.ReactNode}) {
@@ -128,12 +128,12 @@ export default function SignupPage() {
 
         <form onSubmit={handleSubmit} className="mt-5 space-y-4" noValidate>
           <Field id="fullName" label="Full name" error={errors.fullName} required>
-            <input id="fullName" autoComplete="name" value={fullName} onChange={e=>setFullName(e.target.value)} className={errors.fullName?inpErr:inp}/>
+            <input id="fullName" autoComplete="name" value={fullName} onChange={e=>setFullName(e.target.value)} maxLength={100} className={errors.fullName?inpErr:inp}/>
           </Field>
 
           {role==='company'&&<>
             <Field id="companyName" label="Company name" error={errors.companyName} required>
-              <input id="companyName" autoComplete="organization" value={companyName} onChange={e=>setCompanyName(e.target.value)} className={errors.companyName?inpErr:inp}/>
+              <input id="companyName" autoComplete="organization" value={companyName} onChange={e=>setCompanyName(e.target.value)} maxLength={200} className={errors.companyName?inpErr:inp}/>
             </Field>
             <div>
               <label className="text-sm font-medium">Company logo <span className="text-slate-400">(optional)</span></label>
@@ -162,7 +162,7 @@ export default function SignupPage() {
                   <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
                 ))}
               </select>
-              <input id="phone" type="tel" value={phoneNumber} onChange={e=>setPhoneNumber(e.target.value)}
+              <input id="phone" type="tel" value={phoneNumber} onChange={e=>setPhoneNumber(e.target.value)} maxLength={20}
                 placeholder="5xxxxxxxx"
                 className={`flex-1 ${errors.phone?inpErr:inp}`}/>
             </div>
@@ -170,13 +170,13 @@ export default function SignupPage() {
           </div>
 
           <Field id="email" label="Email" error={errors.email} required>
-            <input id="email" type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} className={errors.email?inpErr:inp}/>
+            <input id="email" type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} maxLength={254} className={errors.email?inpErr:inp}/>
           </Field>
 
           <div>
             <label className="text-sm font-medium" htmlFor="password">Password <span className="text-red-500">*</span></label>
             <div className="relative">
-              <input id="password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)}
+              <input id="password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} maxLength={128}
                 className={`${errors.password?inpErr:inp} pr-10`}/>
               <button type="button" onClick={()=>setShowPassword(!showPassword)} className="absolute right-3 top-3.5 text-slate-400 hover:text-slate-600">
                 {showPassword ? (
