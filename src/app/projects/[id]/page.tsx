@@ -181,12 +181,12 @@ export default function ProjectDetailPage() {
                   <div>
                     <label className="text-sm font-medium">Quotation link (recommended)</label>
                     <p className="text-xs text-slate-500 mt-0.5">Attach your quotation via Google Drive or Dropbox.</p>
-                    <input name="bidLink" type="url" placeholder="https://drive.google.com/..."
+                    <input name="bidLink" type="url" placeholder="https://drive.google.com/..." maxLength={500}
                       className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                   </div>
                   <div>
                     <label className="text-sm font-medium">Cover note (optional)</label>
-                    <textarea name="proposal" rows={3} placeholder="Brief note about your bid..."
+                    <textarea name="proposal" rows={3} maxLength={2000} placeholder="Brief note about your bid..."
                       className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                   </div>
                   <button type="submit"
@@ -292,6 +292,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
