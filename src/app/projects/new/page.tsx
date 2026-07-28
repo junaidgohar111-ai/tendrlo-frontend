@@ -192,7 +192,7 @@ export default function NewProjectPage() {
             <input
               value={title}
               onChange={e => setTitle(e.target.value)}
-              placeholder="e.g. HVAC, Civil, MEP, Supply Chain"
+              placeholder="e.g. HVAC, Civil, MEP, Supply Chain" maxLength={200}
               className={inp}
             />
             {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title}</p>}
@@ -205,7 +205,7 @@ export default function NewProjectPage() {
               rows={6}
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder="Describe what needs to be done, materials, site access, and any constraints."
+              maxLength={10000} placeholder="Describe what needs to be done, materials, site access, and any constraints."
               className={inp}
             />
             {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description}</p>}
