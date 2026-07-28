@@ -315,7 +315,7 @@ export default function NewProjectPage() {
                     type="url"
                     value={l}
                     onChange={e => { const u = [...links]; u[i] = e.target.value; setLinks(u); }}
-                    placeholder="https://drive.google.com/..."
+                    placeholder="https://drive.google.com/..." maxLength={500}
                     className={`flex-1 ${inp}`}
                   />
                   <button
@@ -355,5 +355,6 @@ export default function NewProjectPage() {
     </main>
   );
 }
+
 
 
