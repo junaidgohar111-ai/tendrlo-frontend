@@ -159,7 +159,7 @@ export default function SignupPage() {
               <select value={phoneCode} onChange={e=>setPhoneCode(e.target.value)}
                 className="rounded-card border border-blueprint-100 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500">
                 {COUNTRY_CODES.map(c=>(
-                  <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
+                  <option key={c.code} value={c.code}>{c.name} {c.code}</option>
                 ))}
               </select>
               <input id="phone" type="tel" value={phoneNumber} onChange={e=>setPhoneNumber(e.target.value)} maxLength={20}
@@ -212,3 +212,5 @@ export default function SignupPage() {
     </main>
   );
 }
+
+
