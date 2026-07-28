@@ -205,7 +205,7 @@ export default function NewProjectPage() {
               rows={6}
               value={description}
               onChange={e => setDescription(e.target.value)}
-              maxLength={10000} placeholder="Describe what needs to be done, materials, site access, and any constraints." maxLength={5000}
+              maxLength={5000} placeholder="Describe what needs to be done, materials, site access, and any constraints."
               className={inp}
             />
             {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description}</p>}
@@ -355,4 +355,5 @@ export default function NewProjectPage() {
     </main>
   );
 }
+
 
