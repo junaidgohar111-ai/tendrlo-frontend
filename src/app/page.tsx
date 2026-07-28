@@ -78,16 +78,16 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16">
           <div className="max-w-3xl">
             <img src={LOGO} alt="Tendrlo" className="h-14 sm:h-20 w-auto mb-4"/>
-            <span className="inline-block rounded-full border border-blueprint-100 bg-blueprint-50 px-3 py-1 text-xs font-mono uppercase tracking-wider text-blueprint-600">
+            <span className="inline-block rounded-full border border-blueprint-100 animate-fade-in-up delay-100 bg-blueprint-50 px-3 py-1 text-xs font-mono uppercase tracking-wider text-blueprint-600">
               B2B Tendering Marketplace
             </span>
-            <h1 className="mt-4 font-display text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
+            <h1 className="mt-4 font-display text-3xl animate-fade-in-up delay-200 sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
               Post the scope.<br/>Let contractors bid for it.
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-500 max-w-xl">
+            <p className="mt-4 text-base sm:text-lg animate-fade-in-up delay-300 text-slate-500 max-w-xl">
               Construction, Supply Chain, food, materials, and more - post unlimited projects free, compare quotations side by side, award with a verified contractor.
             </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 animate-fade-in-up delay-400">
               <Link href="/signup?role=customer" className="rounded-card bg-blueprint-500 px-6 py-3.5 text-sm font-medium text-white hover:bg-blueprint-600 transition-colors text-center">
                 Post a project - free
               </Link>
@@ -197,6 +197,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 
