@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -111,7 +111,7 @@ export default function CompanyProfilePage() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="font-display text-2xl font-semibold">Company Profile</h1>
           {company?.is_verified && (
-            <span className="rounded-full bg-emerald-50 text-emerald-600 px-3 py-1 text-xs font-mono">Verified ✓</span>
+            <span className="rounded-full bg-emerald-50 text-emerald-600 px-3 py-1 text-xs font-mono">Verified âœ“</span>
           )}
         </div>
 

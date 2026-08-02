@@ -127,7 +127,7 @@ export default function ConversationPage() {
           <textarea
             value={text}
             onChange={e => setText(e.target.value)}
-            placeholder="Type a message..."
+            placeholder="Type a message..." maxLength={2000}
             rows={1}
             className="flex-1 rounded-2xl border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none resize-none max-h-28"
             onKeyDown={e => {
