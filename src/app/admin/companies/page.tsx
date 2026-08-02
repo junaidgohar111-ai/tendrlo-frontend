@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 
@@ -36,7 +36,7 @@ export default function AdminCompanies() {
                 <td className="px-4 py-3 text-xs text-slate-500">{c.email}</td>
                 <td className="px-4 py-3"><span className={`rounded-full px-2.5 py-0.5 text-xs font-mono ${c.is_verified?'bg-emerald-50 text-emerald-600':'bg-slate-100 text-slate-500'}`}>{c.is_verified?'Verified':'Unverified'}</span></td>
                 <td className="px-4 py-3"><span className={`rounded-full px-2.5 py-0.5 text-xs font-mono uppercase ${c.membership_tier==='premium'?'bg-amber-50 text-amber-500':'bg-slate-100 text-slate-500'}`}>{c.membership_tier}</span></td>
-                <td className="px-4 py-3 text-xs font-mono text-slate-500">{c.membership_expires_at?new Date(c.membership_expires_at).toLocaleDateString():'—'}</td>
+                <td className="px-4 py-3 text-xs font-mono text-slate-500">{c.membership_expires_at?new Date(c.membership_expires_at).toLocaleDateString():'â€”'}</td>
                 <td className="px-4 py-3">
                   <div className="flex gap-2 flex-wrap">
                     <button onClick={()=>verify(c.id)} className={`text-xs px-2.5 py-1.5 rounded-card border transition-colors ${c.is_verified?'border-slate-200 text-slate-500 hover:bg-slate-50':'border-blueprint-100 text-blueprint-600 hover:bg-blueprint-50'}`}>{c.is_verified?'Unverify':'Verify'}</button>

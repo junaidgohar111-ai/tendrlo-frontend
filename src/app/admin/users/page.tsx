@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 
@@ -45,7 +45,7 @@ export default function AdminUsers() {
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Search by name or email..."
+          placeholder="Search by name or email..." maxLength={100}
           className="flex-1 rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"
         />
         <select value={role} onChange={e => setRole(e.target.value)}
