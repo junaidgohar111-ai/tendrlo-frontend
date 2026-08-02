@@ -104,8 +104,7 @@ export default function Dashboard() {
             </>
           ) : (
             <>
-              <Link href="/projects" className="rounded-card border border-blueprint-100 bg-white p-5 hover:border-blueprint-500 transition-colors">
-                <h2 className="font-display font-semibold">Browse tenders</h2>
+              <Link href="/profile" className="rounded-card border border-blueprint-100 bg-white p-5 hover:border-blueprint-500 transition-colors"><h2 className="font-display font-semibold">My Profile</h2><p className="text-sm text-slate-500 mt-1">Update company details and logo.</p></Link><Link href="/projects" className="rounded-card border border-blueprint-100 bg-white p-5 hover:border-blueprint-500 transition-colors"><h2 className="font-display font-semibold">Browse tenders</h2>
                 <p className="text-sm text-slate-500 mt-1">Find projects to bid on.</p>
               </Link>
               <Link href="/messages" className="rounded-card border border-blueprint-100 bg-white p-5 hover:border-blueprint-500 transition-colors">
@@ -158,3 +157,4 @@ export default function Dashboard() {
     </main>
   );
 }
+
