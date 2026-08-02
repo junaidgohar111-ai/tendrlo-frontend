@@ -154,7 +154,7 @@ export default function ProjectDetailPage() {
                     await api('/bids', { method:'POST', body:JSON.stringify({
                       projectId: id,
                       amount: Number(amount),
-                      proposalText: proposal || 'Please see attached link for full quotation.',
+                      proposalText: proposal || ' ',
                       estimatedDays: days ? Number(days) : undefined,
                       bidLink: bidLink || undefined
                     })});
@@ -295,6 +295,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
