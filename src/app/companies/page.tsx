@@ -24,7 +24,7 @@ export default function CompaniesPage() {
     const s = search.toLowerCase();
     setFiltered(companies.filter((c) =>
       c.company_name?.toLowerCase().includes(s) ||
-      c.covered_cities?.some((city) => city.toLowerCase().includes(s))
+      c.covered_cities?.some((city: string) => city.toLowerCase().includes(s))
     ));
   }, [search, companies]);
 
@@ -95,4 +95,5 @@ export default function CompaniesPage() {
     </main>
   );
 }
+
 
