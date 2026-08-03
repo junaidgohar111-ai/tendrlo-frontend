@@ -39,7 +39,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon-32x32.png" type="image/png"/>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
       </head>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "Is it free to post a project on Tendrlo?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Posting projects is completely free on Tendrlo. No credit card required." } },
+              { "@type": "Question", "name": "Is it free to bid on projects?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Bidding on projects is free for all registered company accounts on Tendrlo." } },
+              { "@type": "Question", "name": "What is Tendrlo?", "acceptedAnswer": { "@type": "Answer", "text": "Tendrlo is a B2B tendering marketplace that connects businesses with verified contractors in Saudi Arabia and Pakistan for construction, engineering, HVAC, MEP and more." } },
+              { "@type": "Question", "name": "How do contractors get verified on Tendrlo?", "acceptedAnswer": { "@type": "Answer", "text": "Contractors upload their government registration certificate during signup. The Tendrlo team reviews and verifies the account." } }
+            ]
+          }) }}
+        />{children}</body>
     </html>
   );
 }
