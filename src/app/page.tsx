@@ -36,7 +36,7 @@ export default function Home() {
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <main className="min-h-screen overflow-hidden">
+    <main className="min-h-screen overflow-hidden"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": [{ "@type": "Organization", "name": "Tendrlo", "url": "https://www.tendrlo.com", "logo": "https://tendrlo.s3.ap-southeast-1.amazonaws.com/Blue+Modern+Playful+Typographic+Patisserie+Logo+.png", "description": "B2B tendering marketplace connecting businesses with verified contractors in Saudi Arabia and Pakistan.", "contactPoint": { "@type": "ContactPoint", "email": "support@tendrlo.com", "contactType": "customer support" } }, { "@type": "WebSite", "name": "Tendrlo", "url": "https://www.tendrlo.com", "potentialAction": { "@type": "SearchAction", "target": { "@type": "EntryPoint", "urlTemplate": "https://www.tendrlo.com/projects?keyword={search_term_string}" }, "query-input": "required name=search_term_string" } }] }) }} />
 
       {/* HEADER */}
       <header className="sticky top-0 z-50 glass border-b border-blueprint-100 backdrop-blur-md">
@@ -227,5 +227,6 @@ export default function Home() {
     </main>
   );
 }
+
 
 
