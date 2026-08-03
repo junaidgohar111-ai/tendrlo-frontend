@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 
 export default function CompaniesPage() {
-  const [companies, setCompanies] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+  const [companies, setCompanies] = useState<any[]>([]);
+  const [filtered, setFiltered] = useState<any[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -95,3 +95,4 @@ export default function CompaniesPage() {
     </main>
   );
 }
+
