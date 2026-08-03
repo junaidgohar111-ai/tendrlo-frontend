@@ -1,10 +1,21 @@
 ﻿'use client';
 import Link from 'next/link';
 
-<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{ "@type": "Question", "name": "Is it free to post a project?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Posting projects is completely free. No credit card required." } }, { "@type": "Question", "name": "Is it free to bid on projects?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Bidding on projects is free for all registered company accounts." } }, { "@type": "Question", "name": "How do I get verified?", "acceptedAnswer": { "@type": "Answer", "text": "Upload your government registration certificate during signup. Our team will review and verify your account." } }, { "@type": "Question", "name": "What file types can I upload?", "acceptedAnswer": { "@type": "Answer", "text": "PDF, DWG, Excel, images, and videos up to 80MB each." } }] }) }} />
+
 export default function SupportPage() {
   return (
     <main className="min-h-screen bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Is it free to post a project?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Posting projects is completely free. No credit card required." } },
+          { "@type": "Question", "name": "Is it free to bid on projects?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Bidding on projects is free for all registered company accounts." } },
+          { "@type": "Question", "name": "How do I get verified?", "acceptedAnswer": { "@type": "Answer", "text": "Upload your government registration certificate during signup. Our team will review and verify your account." } },
+          { "@type": "Question", "name": "How do I contact a contractor?", "acceptedAnswer": { "@type": "Answer", "text": "After receiving bids, you can message contractors directly through the platform." } },
+          { "@type": "Question", "name": "What file types can I upload?", "acceptedAnswer": { "@type": "Answer", "text": "PDF, DWG, Excel, images, and videos up to 80MB each." } }
+        ]
+      }) }} />
       <header className="border-b border-blueprint-100">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 py-4 flex items-center gap-3">
           <button onClick={() => window.history.back()} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">
