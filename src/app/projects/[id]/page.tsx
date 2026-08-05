@@ -168,7 +168,7 @@ export default function ProjectDetailPage() {
                 }} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium">Bid amount ({project.currency})</label>
+                      <label className="text-sm font-medium">Bid amount</label>
                       <input name="amount" type="number" required min="1"
                         className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
                     </div>
@@ -295,6 +295,8 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
+
 
 
 
