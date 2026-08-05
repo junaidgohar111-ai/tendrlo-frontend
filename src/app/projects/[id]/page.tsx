@@ -165,7 +165,7 @@ export default function ProjectDetailPage() {
                     alert(err.message || 'Failed to submit bid.');
                   }
                 }} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-4">
                     <div>
                       <label className="text-sm font-medium">Bid amount</label><div className="flex gap-2 mt-1"><select name="currency" defaultValue={project.currency} className="rounded-card border border-blueprint-100 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"><option value="SAR">SAR</option><option value="USD">USD</option><option value="AED">AED</option><option value="PKR">PKR</option><option value="INR">INR</option></select><input name="amount" type="number" min="1" className="flex-1 rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/></div>
                     </div>
@@ -176,7 +176,7 @@ export default function ProjectDetailPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Quotation link (recommended)</label>
+                    <label className="text-sm font-medium">Quotation link (optional)</label>
                     <p className="text-xs text-slate-500 mt-0.5">Attach your quotation via Google Drive or Dropbox.</p>
                     <input name="bidLink" type="url" placeholder="https://drive.google.com/..." maxLength={500}
                       className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
@@ -292,6 +292,8 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
+
 
 
 
