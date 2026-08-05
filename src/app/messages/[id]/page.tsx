@@ -15,8 +15,14 @@ export default function ConversationPage() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    api('/auth/me').then(d => setUserId(d.user.id)).catch(() => {});
-    load();
+    async function init() {
+      try {
+        const me = await api('/auth/me');
+        setUserId(me.user.id);
+      } catch {}
+      load();
+    }
+    init();
     const t = setInterval(load, 3000);
     return () => clearInterval(t);
   }, [id]);
@@ -151,4 +157,5 @@ export default function ConversationPage() {
     </main>
   );
 }
+
 
