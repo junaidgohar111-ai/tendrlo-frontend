@@ -149,12 +149,11 @@ export default function ProjectDetailPage() {
                   const amount = getVal('amount');
                   const proposal = getVal('proposal');
                   const days = getVal('days');
-                  const bidLink = getVal('bidLink');
+                  const bidLink = getVal('bidLink'); const currency = (form.elements.namedItem('currency') as HTMLSelectElement)?.value || project.currency;
                   try {
                     await api('/bids', { method:'POST', body:JSON.stringify({
                       projectId: id,
-                      amount: Number(amount),
-                      proposalText: proposal || ' ',
+                      amount: Number(amount), currency: currency, proposalText: proposal || ' ',
                       estimatedDays: days ? Number(days) : undefined,
                       bidLink: bidLink || undefined
                     })});
@@ -168,9 +167,7 @@ export default function ProjectDetailPage() {
                 }} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium">Bid amount</label>
-                      <input name="amount" type="number" required min="1"
-                        className="mt-1 w-full rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/>
+                      <label className="text-sm font-medium">Bid amount</label><div className="flex gap-2 mt-1"><select name="currency" defaultValue={project.currency} className="rounded-card border border-blueprint-100 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"><option value="SAR">SAR</option><option value="USD">USD</option><option value="AED">AED</option><option value="PKR">PKR</option><option value="INR">INR</option></select><input name="amount" type="number" required min="1" className="flex-1 rounded-card border border-blueprint-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blueprint-500"/></div>
                     </div>
                     <div>
                       <label className="text-sm font-medium">Estimated days</label>
@@ -295,6 +292,8 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
+
 
 
 
