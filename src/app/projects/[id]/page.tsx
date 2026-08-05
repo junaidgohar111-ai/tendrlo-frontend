@@ -153,7 +153,7 @@ export default function ProjectDetailPage() {
                   try {
                     await api('/bids', { method:'POST', body:JSON.stringify({
                       projectId: id,
-                      amount: Number(amount), currency: currency, proposalText: proposal || ' ',
+                      amount: Number(amount), currency: currency, proposalText: proposal || undefined,
                       estimatedDays: days ? Number(days) : undefined,
                       bidLink: bidLink || undefined
                     })});
@@ -292,6 +292,7 @@ export default function ProjectDetailPage() {
     </main>
   );
 }
+
 
 
 
